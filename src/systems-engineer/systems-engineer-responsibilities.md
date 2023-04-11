@@ -5,6 +5,9 @@ The Systems Engineer is a key member of the technology team, responsible for des
 
 ## Key Responsibilities
 
+- Deploying labs
+- Managing infrastructure (Cloud and On-Premise)
+- Building CI/CD for the organization
 ## Additional Information
 
 ## Conclusion
