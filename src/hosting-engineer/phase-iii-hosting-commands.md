@@ -11,6 +11,7 @@ Scroll down for lab repo license should be added.
 
  
 Click on create repository 
+
 2.	Adding Lab-Descriptor.json file 
 
 Once repo is created we need to add the “lab-descriptor.json” file.  template is in the ph3-lab-mgmt.
