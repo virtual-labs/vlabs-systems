@@ -77,23 +77,35 @@ Gateway IP is 10.100.3.36 and there are two more VM’s 10.100.2.245 and 10.100.
  
 
 •	Go to home directory “cd /home/ubuntu/host/” check for the lab repo  
-•	If lab repo is not present clone the repo from the GitHub 
-•	Open the lab repo “cd lab repo name”  
-•	“vi lab-descriptor.json”
-•	Check for the tag name mentioned in it with the lab issue tag are matching 
-•	Now go to ph3-lab-mgmt repo “cd /home/ph3-lab-mgmt/”
-•	Once you are in ph3-lab-mgmt repo run the following command “npm run labgen -- /home/ubuntu/host/lab_repo_name/” 
 
+•	If lab repo is not present clone the repo from the GitHub 
+
+•	Open the lab repo “cd lab repo name”  
+
+•	Open the lab descriptor.json file in the lab repo“vi lab-descriptor.json” and Check for the tag name mentioned in it with the lab issue tag are matching.
+
+•	Now go to ph3-lab-mgmt repo “cd /home/ph3-lab-mgmt/”
+
+•	Once you are in ph3-lab-mgmt repo run the following command “npm run labgen -- /home/ubuntu/host/lab_repo_name/” 
  
 •	Now copy the path remove the stage and run the command “/var/www/html/lab_repo_name”
+
 •	“ls” here to see the content 
+
 •	Now run the following command “rsyn -avz /var/www/html/lab_repo_name root@10.100.2.245:/root/builds”
+
 •	Note: the ip address will be in the Hosted AWS sheet check which ip address does the lab is hosted.
+
 •	If the lab is hosted in two VM’s run the command “rsyn -avz /var/www/html/lab_repo_name root@10.100.2.149:/root/builds”
+
 •	It will copy the file to both the machine (VM’s)
+
 •	Now login to the 10.100.2.149 server by running “ssh -l root@10.100.2.149” 
+
 •	Run ls command you will see a repo name “builds” 
+
 •	Now will move the files from builds to html by running the command “rm -rf /var/www/html/lab_name/* && mv * /var/www/html/lab_name/ 
+
 •	Check the hosted lab in the browser. 
 
 
