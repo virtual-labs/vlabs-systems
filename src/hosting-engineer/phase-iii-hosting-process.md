@@ -17,7 +17,7 @@ Before we start, you will need a GitHub account and access to [Virtual Labs](htt
 
 
 **1.	Creation of Lab repo**
-- Will create a lab repo in github based on the hosting request issue.
+- Will create a lab repo in github based on the hosting request(Github Issue).
 - Add license "GNU Affero General Public License V3.0" under Choose a license dropdown.
 
 **2.	Adding Lab-Descriptor.json file** 
@@ -148,13 +148,13 @@ rsync -avz /var/www/html/lab_repo_name root@ipaddress:/root/builds
 
 **20. File Movement to HTML Directory:**
     
-•	To transfer the files from the "builds" repository to the "html" directory, execute the following command:
+- To transfer the files from the "builds" repository to the "html" directory, execute the following command:
 ~~~
 rm -rf /var/www/html/lab_name/* && mv * /var/www/html/lab_name/"
 ~~~
 **21. Verification - Hosted Lab in the Browser:**
     
-•	Finally, open your web browser and confirm the hosted lab by navigating to the appropriate URL or IP address.
+- Finally, open your web browser and confirm the hosted lab by navigating to the appropriate URL or IP address.
 
 
 
