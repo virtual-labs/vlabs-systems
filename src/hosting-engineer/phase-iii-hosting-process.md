@@ -126,8 +126,9 @@ cd /var/www/html/lab_repo_name.
 **15. Synchronize Lab Repository to the instance:**
     
 - Copy the lab repository to another machine (VM) with IP as per the [AWS hosted sheet](https://docs.google.com/spreadsheets/d/1WXJA_1QkLg-5S0YYBRKyhEXwOgTSbKvm972Fy-thCUc/edit#gid=263424893). using the command:
-"rsync -avz /var/www/html/lab_repo_name root@ipaddress:/root/builds"
-
+~~~
+rsync -avz /var/www/html/lab_repo_name root@ipaddress:/root/builds
+~~~
 **16. Important Note - IP Address Checking:**
     
 -	Refer to the Hosted AWS sheet to identify the correct IP address where the lab is hosted.
