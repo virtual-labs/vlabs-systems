@@ -1,3 +1,5 @@
+# Phase-III Lab Hosting Process
+
 ## Introduction 
 * This document offers a comprehensive, step-by-step guide detailing the process of hosting a Phase 3 virtual lab in the AWS cloud infrastructure.
 
