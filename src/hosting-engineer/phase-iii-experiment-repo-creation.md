@@ -1,4 +1,4 @@
-# Phase-iii Experiment Repo Creation
+# Phase-III Experiment Repo Creation
 
 ## Introduction 
 This document outlines the step-by-step process for creating experiment repositories within the github Virtual Labs Engineer Forum repository. 
