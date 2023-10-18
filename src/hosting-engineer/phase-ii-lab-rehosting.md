@@ -1,3 +1,5 @@
+# Phase-II Lab Rehosting Process
+
 ## Introduction 
 - This document offers a comprehensive, step-by-step guide detailing the process of hosting a Phase 2 virtual lab in the AWS cloud infrastructure.
 
