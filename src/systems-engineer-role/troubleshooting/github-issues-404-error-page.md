@@ -9,8 +9,11 @@ The purpose of this document is to guide users through the troubleshooting proce
 
 # Who Should Use This Guide?
 This guide is intended for:
+
 **Developers:** Individuals actively contributing to or managing code repositories.
+
 **Project Managers:** Those overseeing collaborative projects and workflows on GitHub.
+
 **Anyone Utilizing GitHub:** Whether you're a beginner or an experienced user, this guide caters to a diverse audience.
 
 # Step by Step Solutions
