@@ -146,8 +146,10 @@ rsync -avz /var/www/html/lab_repo_name root@ipaddress:/root/builds
 
 **19. Inspect the Repository:**
     
--	After successfully logging in, run the ls command to view the contents. You should see a repository named "builds."
-
+-	After successfully logging in, run the ls command to view the contents. You should see a repository named "builds." Open the lab repo 
+~~~
+cd lab_repo_name
+~~~
 **20. File Movement to HTML Directory:**
     
 - To transfer the files from the "builds" repository to the "html" directory, execute the following command:
