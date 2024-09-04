@@ -188,11 +188,9 @@ In summary, this YAML file describes a GitHub Actions workflow that builds an ex
     - Error Logs: If the above steps don't resolve the issue, consult the error logs associated with the virtual lab environment. These logs can provide valuable clues about the specific cause of the problem.
 
 #### Q) "FATAL ERROR: Ineffective mark-compacts near heap limit Allocation failed - JavaScript heap out of memory" error when building a lab on AWS using npm labgen. How can I fix this?
-   - Open your terminal.Enter the following code to increase the memory for JavaScript:
-   ```bash
-   export NODE_OPTIONS=--max_old_space_size=4096
-
-    
+    - Open the terminal.Enter the following code to increase the memory for JavaScript:
+       export NODE_OPTIONS=--max_old_space_size=4096
+     
 
 ## Why CI/CD
 - Virtual Labs employs Continuous Integration (CI) and Continuous Deployment (CD) practices to ensure a smooth and efficient development process. By deploying code to GitHub Pages for testing before moving it to production on AWS, Virtual Labs achieves several vital benefits:
