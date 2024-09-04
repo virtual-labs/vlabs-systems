@@ -176,6 +176,23 @@ In summary, this YAML file describes a GitHub Actions workflow that builds an ex
     - Workflow will fail to execute due to software and hardware issues from GitHub
     - Go to the Actions tab in your GitHub repository to check the status of your GitHub Actions. Look for failed or errored workflows, and select the specific run to view more details. 
     - Re-run the errored workflow to start the deployment of pages.
+    
+#### Q)  Got "404" error when I try to access a Virtual Labs experiment after pushing a code change. What's going on?
+    - Verify the build status: Navigate to the latest commit in the GitHub repository. Check if the build ran successfully. If not, proceed to the next step.
+    - Investigate the Build Directory: Examine the directory "home/build/repo_name" for any sources that were built or not built.Identify and address the build error to ensure a successful build process
+    - Check for JSON Errors: Many errors occur in JSON files.Execute the JSON script in a JSON validator to identify and resolve any issues.
+    
+#### Q) Hosted virtual lab experiments are not working as expected. Why?
+    - Verify Tag Consistency: Ensure that the tags used in the lab descriptor file match the actual tags in your codebase. Inconsistencies can lead to unexpected behavior.
+    - Confirm Code Merge: Verify that the code for the malfunctioning experiment(s) has been successfully merged from the testing branch into the main branch. Unmerged code changes won't be reflected in the hosted lab.
+    - Error Logs: If the above steps don't resolve the issue, consult the error logs associated with the virtual lab environment. These logs can provide valuable clues about the specific cause of the problem.
+
+#### Q) "FATAL ERROR: Ineffective mark-compacts near heap limit Allocation failed - JavaScript heap out of memory" error when building a lab on AWS using npm labgen. How can I fix this?
+- Open your terminal.Enter the following code to increase the memory for JavaScript:
+   ```bash
+   export NODE_OPTIONS=--max_old_space_size=4096
+
+    
 
 ## Why CI/CD
 - Virtual Labs employs Continuous Integration (CI) and Continuous Deployment (CD) practices to ensure a smooth and efficient development process. By deploying code to GitHub Pages for testing before moving it to production on AWS, Virtual Labs achieves several vital benefits:
