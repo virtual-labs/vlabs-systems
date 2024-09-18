@@ -155,43 +155,47 @@ In summary, this YAML file describes a GitHub Actions workflow that builds an ex
 ## Troubleshooting Experiment Deployment Script
 - This section briefly discusses managing or troubleshooting GitHub Actions for deploying code to GitHub Pages.
 
-#### Q) Pipeline worked in the last iteration but not working in this iteration. Why? (JSON) 
-    - Verify that your workflow file ([`.github/workflows/deployment-script.yml`](https://github.com/virtual-labs/exp-bubble-sort-iiith/blob/main/.github/workflows/deployment-script.yml) or a similar name) is correctly set up and has no syntax errors. Ensure the file structure, event triggers, job steps, and actions are adequately defined.
-    - Go to the Actions tab in your GitHub repository to check the status of your GitHub Actions. Look for failed or errored workflows, and select the specific run to view more details. 
-    - GitHub Actions provides logs for each workflow run. These logs contain detailed information about the execution of each step in your workflow. Examine the logs to identify any errors or warnings, which can help you pinpoint the cause of the issue.
-    - Most of the issues are due to syntax issues in JSON files(Expecting the audience to know JSON).
-    - Identify the JSON file and report to the developer to fix the syntax. 
+#### Q) Pipeline worked in the last iteration but not working in this iteration. Why? (JSON)
+  - Verify that your workflow file ([`.github/workflows/deployment-script.yml`](https://github.com/virtual-labs/exp-bubble-sort-iiith/blob/main/.github/workflows/deployment-script.yml) or a similar name) is correctly set up and has no syntax errors. Ensure the file structure, event triggers, job steps, and actions are adequately defined.
+  - Go to the Actions tab in your GitHub repository to check the status of your GitHub Actions. Look for failed or errored workflows, and select the specific run to view more details. 
+  - GitHub Actions provides logs for each workflow run. These logs contain detailed information about the execution of each step in your workflow. Examine the logs to identify any errors or warnings, which can help you pinpoint the cause of the issue.
+  - Most of the issues are due to syntax issues in JSON files(Expecting the audience to know JSON).
+  - Identify the JSON file and report to the developer to fix the syntax. 
 
 #### Q) GitHub pages not working. Why? (Pages not working)
-    - This happens when GitHub pages are not configured properly.
-    - Check if GitHub Pages are set up for the experiment repository.
-    - Go to the experiment repository's main page on GitHub.
-    - Look for the "Settings" button near the top right corner of the page and click on it. 
-    - Scroll down to the "GitHub Pages" section. 
-    - If GitHub Pages are set up for the repository, you should see a message that says, "Your site is published at [experiment site URL]." This indicates that the GitHub page is live and can be accessed via the URL provided.
+  - This happens when GitHub pages are not configured properly.
+  - Check if GitHub Pages are set up for the experiment repository.
+  - Go to the experiment repository's main page on GitHub.
+  - Look for the "Settings" button near the top right corner of the page and click on it. 
+  - Scroll down to the "GitHub Pages" section. 
+  - If GitHub Pages are set up for the repository, you should see a message that says, "Your site is published at [experiment site URL]." This indicates that the GitHub page is live and can be accessed via the URL provided.
 
 
 #### Q) Everything has been setup properly but why is still CI\CD pipeline failed to execute? (Errored Workflow)
-    - By default, GitHub provides 2,000 pipeline Minutes (per month) and 500 MB Storage, sufficient for 100+ active repositories.
-    - Workflow will fail to execute due to software and hardware issues from GitHub
-    - Go to the Actions tab in your GitHub repository to check the status of your GitHub Actions. Look for failed or errored workflows, and select the specific run to view more details. 
-    - Re-run the errored workflow to start the deployment of pages.
+  - By default, GitHub provides 2,000 pipeline Minutes (per month) and 500 MB Storage, sufficient for 100+ active repositories.
+  - Workflow will fail to execute due to software and hardware issues from GitHub
+  - Go to the Actions tab in your GitHub repository to check the status of your GitHub Actions. Look for failed or errored workflows, and select the specific run to view more details. 
+  - Re-run the errored workflow to start the deployment of pages.
     
 #### Q)  Got "404" error when I try to access a Virtual Labs experiment after pushing a code change. What's going on?
-    - Verify the build status: Navigate to the latest commit in the GitHub repository. Check if the build ran successfully. If not, proceed to the next step.
-    - Investigate the Build Directory: Examine the directory "home/build/repo_name" for any sources that were built or not built.Identify and address the build error to ensure a successful build process
-    - Check for JSON Errors: Many errors occur in JSON files.Execute the JSON script in a JSON validator to identify and resolve any issues.
+  - Verify the build status: Navigate to the latest commit in the GitHub repository. Check if the build ran successfully. If not, proceed to the next step.
+  - Investigate the Build Directory: Examine the directory "home/build/repo_name" for any sources that were built or not built.Identify and address the build error to ensure a successful build process
+  - Check for JSON Errors: Many errors occur in JSON files.Execute the JSON script in a JSON validator to identify and resolve any issues.
     
 #### Q) Hosted virtual lab experiments are not working as expected. Why?
-    - Verify Tag Consistency: Ensure that the tags used in the lab descriptor file match the actual tags in your codebase. Inconsistencies can lead to unexpected behavior.
-    - Confirm Code Merge: Verify that the code for the malfunctioning experiment(s) has been successfully merged from the testing branch into the main branch. Unmerged code changes won't be reflected in the hosted lab.
-    - Error Logs: If the above steps don't resolve the issue, consult the error logs associated with the virtual lab environment. These logs can provide valuable clues about the specific cause of the problem.
+  - Verify Tag Consistency: Ensure that the tags used in the lab descriptor file match the actual tags in your codebase. Inconsistencies can lead to unexpected behavior.
+  - Confirm Code Merge: Verify that the code for the malfunctioning experiment(s) has been successfully merged from the testing branch into the main branch. Unmerged code changes won't be reflected in the hosted lab.
+  - Error Logs: If the above steps don't resolve the issue, consult the error logs associated with the virtual lab environment. These logs can provide valuable clues about the specific cause of the problem.
 
 #### Q) "FATAL ERROR: Ineffective mark-compacts near heap limit Allocation failed - JavaScript heap out of memory" error when building a lab on AWS using npm labgen. How can I fix this?
-    - Open the terminal.Enter the following code to increase the memory for JavaScript:
-       export NODE_OPTIONS=--max_old_space_size=4096
-     
-
+  - Open the terminal. Enter the following code to increase the memory for JavaScript:
+    ```
+    export NODE_OPTIONS=--max_old_space_size=4096
+      
+#### Q) Why are some experiments not building successfully after the workflow completes in a lab?
+  - Invalid File in an Experiment: If the workflow has completed but some experiments are not building, it's likely that one or more of those experiments contains an invalid file.
+  - Check for Errors: Carefully examine the experiment files, especially JSON files, for any syntax errors, missing data, or incorrect formatting.
+  - Fix and Retry: Once you've identified and corrected the invalid file, try rebuilding the lab to see if the experiment now builds successfully.
 ## Why CI/CD
 - Virtual Labs employs Continuous Integration (CI) and Continuous Deployment (CD) practices to ensure a smooth and efficient development process. By deploying code to GitHub Pages for testing before moving it to production on AWS, Virtual Labs achieves several vital benefits:
 1. **Reduced Error Rates:** CI/CD helps identify and fix errors quickly by automatically building and deploying code changes. This practice minimizes the chances of human errors and results in higher-quality software.
@@ -199,7 +203,6 @@ In summary, this YAML file describes a GitHub Actions workflow that builds an ex
 3. **Increased Productivity:** CI/CD automates repetitive tasks, such as building and deploying code, freeing developers to focus on more value-added activities. This leads to increased productivity and reduced time-to-market for new features and bug fixes.
 4. **Improved Collaboration:** The CI/CD pipeline encourages collaboration between developers and operations teams. By working together, these teams can identify and resolve issues more efficiently, leading to a more robust and reliable software product.
 5. **Enhanced Confidence in Releases:** When code is automatically tested and deployed to GitHub Pages, developers can gain confidence in their changes before moving them to production on AWS. This ensures that the code is stable and ready for deployment, reducing the risk of downtime or unexpected issues in the production environment.
-
 
 ## Future scope
 - In the future, Virtual Labs plans to further optimize the CI/CD pipeline by incorporating additional automated tests, performance monitoring, and security checks. This will help to ensure that code changes are thoroughly tested and validated before deployment, resulting in a more stable and reliable infrastructure for the hosted experiments.
