@@ -155,6 +155,60 @@ In summary, this YAML file describes a GitHub Actions workflow that builds an ex
 ## Troubleshooting Experiment Deployment Script
 - This section briefly discusses managing or troubleshooting GitHub Actions for deploying code to GitHub Pages.
 
+#### 1) "MaxListenersExceededWarning: Possible EventEmitter memory leak detected. 31 finish listeners added to [PassThrough]. Use emitter.setMaxListeners() to increase limit". How to troubleshoot this error?
+
+- **Problem**:  
+  During the lab deployment, several experiments failed to build. Out of 10 experiments, only 5 were successfully built, and the remaining experiments were skipped. This inconsistency in the deployment workflow needs to be addressed to ensure all experiments are processed correctly.
+
+- **Error Description**:  
+  Upon reviewing the GitHub Actions workflow logs, an error message appeared during the build process:  
+  **"MaxListenersExceededWarning: Possible EventEmitter memory leak detected. 31 finish listeners added to [PassThrough]. Use emitter.setMaxListeners() to increase limit."**  
+  Although this warning did not completely halt the deployment, it caused the build process for certain experiments to stop while allowing the rest of the deployment to continue. This resulted in only a subset of the experiments being built.
+
+- **Root Cause**:  
+  The root cause of this issue stems from **invalid JSON files** within some of the experiments. If a particular experiment contains an invalid or malformed JSON file, the build process for that experiment is terminated, leading to the warning message. In this case, if the invalid file occurs in the 6th experiment, the first 5 experiments will build successfully, and the error will manifest when the system tries to process the faulty experiment.
+
+- **Solution/Fix**:
+  1. **Identify the problematic experiment**: Review the GitHub Actions workflow logs to find the point where the deployment stops building. The last successfully built experiment will help pinpoint where the error occurred.
+  2. **Locate the invalid JSON file**: Navigate to the repository for the experiment immediately following the last successful build. Check the JSON files in that experiment, as they are likely the source of the issue.
+  3. **Validate the JSON files**: Use a JSON validator, such as [JSONLint](https://jsonlint.com/), to identify and correct any syntax errors in the JSON files. This may include missing commas, incorrect brackets, or invalid data types.
+  4. **Rebuild the lab**: After correcting the invalid JSON files, trigger the lab deployment again. Verify that all experiments, including those previously skipped, are built successfully.
+
+- **Post-Fix Verification**:  
+  After applying the fix, re-run the GitHub Actions workflow and ensure that all experiments, including the previously skipped ones, are built without any errors or warnings in the logs. Confirm that the `MaxListenersExceededWarning` no longer appears and that the full deployment process completes successfully
+
+
+#### 2) "warning: Could not find remote branch v1.0.0 to clone." "fatal: Remote branch v1.0.0 not found in upstream origin" How to troubleshoot this?
+
+- **Problem**:  
+  During the lab deployment, several experiments failed to build. Out of 10 experiments, only 5 were successfully built, and the remaining experiments were skipped. This issue needs to be fixed to ensure all experiments are properly processed.
+
+- **Error Description**:  
+  While checking the GitHub Actions workflow logs, the following error messages appeared:  
+  **"warning: Could not find remote branch v1.0.0 to clone."**  
+  **"fatal: Remote branch v1.0.0 not found in upstream origin."**  
+  These warnings didn’t stop the entire deployment, but they caused some experiments to fail to build, resulting in only a few experiments being processed while the rest were skipped.
+
+- **Root Cause**:  
+  The main cause of this issue is **incorrect or missing tags** in the experiment repositories. Either the experiment was not tagged, or the tag in the `descriptor.json` file does not match the actual tag in the GitHub repository. Additionally, tags must follow a specific format:  
+  - No uppercase letters.
+  - Tags should follow the format `v1.0.0`, with a total length of 6 characters.
+
+- **Solution/Fix**:
+  1. **Verify tags**: Check that the tags in the `descriptor.json` file and the experiment’s GitHub repository are the same.
+  2. **Correct the tags**: If the tags don’t match, contact the developer to correct and update the tags in the GitHub repository to match the format `v1.0.0`. Ensure that the tags contain no uppercase letters and adhere to the 6-character length.
+  3. **Update the lab descriptor**: Once the correct tag is confirmed, update the `descriptor.json` file with the proper tag information.
+  4. **Redeploy the lab**: After updating the tag, redeploy the lab to verify that all experiments now build successfully.
+
+- **Post-Fix Verification**:  
+  After applying the fix, re-run the deployment process in GitHub Actions and verify that all experiments are built without errors. Ensure that the warning and fatal error regarding missing branches no longer appear in the logs.
+
+- **Lessons Learned**:  
+  1. Ensure that tags are properly defined and formatted before deployment to prevent build failures.
+  2. Consistently check and verify that `descriptor.json` files are up to date with the correct tag information from the repositories.
+  3. Avoid using uppercase letters or incorrect tag formats to minimize deployment issues.
+
+
 #### Q) Pipeline worked in the last iteration but not working in this iteration. Why? (JSON)
   - Verify that your workflow file ([`.github/workflows/deployment-script.yml`](https://github.com/virtual-labs/exp-bubble-sort-iiith/blob/main/.github/workflows/deployment-script.yml) or a similar name) is correctly set up and has no syntax errors. Ensure the file structure, event triggers, job steps, and actions are adequately defined.
   - Go to the Actions tab in your GitHub repository to check the status of your GitHub Actions. Look for failed or errored workflows, and select the specific run to view more details. 
@@ -198,27 +252,6 @@ In summary, this YAML file describes a GitHub Actions workflow that builds an ex
   - Fix and Retry: Once you've identified and corrected the invalid file, try rebuilding the lab to see if the experiment now builds successfully.
 
 
-#### Q) "MaxListenersExceededWarning: Possible EventEmitter memory leak detected. 31 finish listeners added to [PassThrough]. Use emitter.setMaxListeners() to increase limit". How to troubleshoot this error?
-
-- **Problem**:  
-  During the lab deployment, several experiments failed to build. Out of 10 experiments, only 5 were successfully built, and the remaining experiments were skipped. This inconsistency in the deployment workflow needs to be addressed to ensure all experiments are processed correctly.
-
-- **Error Description**:  
-  Upon reviewing the GitHub Actions workflow logs, an error message appeared during the build process:  
-  **"MaxListenersExceededWarning: Possible EventEmitter memory leak detected. 31 finish listeners added to [PassThrough]. Use emitter.setMaxListeners() to increase limit."**  
-  Although this warning did not completely halt the deployment, it caused the build process for certain experiments to stop while allowing the rest of the deployment to continue. This resulted in only a subset of the experiments being built.
-
-- **Root Cause**:  
-  The root cause of this issue stems from **invalid JSON files** within some of the experiments. If a particular experiment contains an invalid or malformed JSON file, the build process for that experiment is terminated, leading to the warning message. In this case, if the invalid file occurs in the 6th experiment, the first 5 experiments will build successfully, and the error will manifest when the system tries to process the faulty experiment.
-
-- **Solution/Fix**:
-  1. **Identify the problematic experiment**: Review the GitHub Actions workflow logs to find the point where the deployment stops building. The last successfully built experiment will help pinpoint where the error occurred.
-  2. **Locate the invalid JSON file**: Navigate to the repository for the experiment immediately following the last successful build. Check the JSON files in that experiment, as they are likely the source of the issue.
-  3. **Validate the JSON files**: Use a JSON validator, such as [JSONLint](https://jsonlint.com/), to identify and correct any syntax errors in the JSON files. This may include missing commas, incorrect brackets, or invalid data types.
-  4. **Rebuild the lab**: After correcting the invalid JSON files, trigger the lab deployment again. Verify that all experiments, including those previously skipped, are built successfully.
-
-- **Post-Fix Verification**:  
-  After applying the fix, re-run the GitHub Actions workflow and ensure that all experiments, including the previously skipped ones, are built without any errors or warnings in the logs. Confirm that the `MaxListenersExceededWarning` no longer appears and that the full deployment process completes successfully
 
 
 ## Why CI/CD
