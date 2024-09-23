@@ -209,20 +209,97 @@ In summary, this YAML file describes a GitHub Actions workflow that builds an ex
   3. Avoid using uppercase letters or incorrect tag formats to minimize deployment issues.
 
 
+#### 3) "FATAL ERROR: Ineffective mark-compacts near heap limit Allocation failed - JavaScript heap out of memory" error when building a lab on AWS using npm labgen. How can I fix this?
+
+- **Problem**:  
+  While building a lab on AWS using `npm labgen`, the process fails with a fatal error related to memory allocation. The error message indicates that the JavaScript heap size is insufficient.
+
+- **Error Description**:  
+  The build process fails with the following error:  
+  **"FATAL ERROR: Ineffective mark-compacts near heap limit Allocation failed - JavaScript heap out of memory."**  
+  This error occurs when the default memory limit for Node.js is exceeded, especially when working with large projects.
+
+- **Root Cause**:  
+  Node.js has a default memory limit that can be too low for certain large projects. When the lab generation process requires more memory than the default allocation, the JavaScript engine runs out of heap space, causing the build to fail.
+  
+- **Solution/Fix**:  
+  Increase the memory allocation for Node.js by setting the `NODE_OPTIONS` environment variable:
+  
+  1. Open the terminal.
+  2. Enter the following command to increase the maximum old space size (memory) to 4 GB:
+  
+  ```
+  export NODE_OPTIONS=--max_old_space_size=4096
+
+- **Post-Fix Verification:**:
+  After increasing the memory limit, rebuild the lab on AWS using npm labgen and verify that the build completes without any memory-related errors.
+
+
+#### 4) Why is GitHub Pages site not loading or displaying properly?
+
+- **Problem**:  
+  GitHub Pages for an experiment repository are not working or the site is not accessible.
+
+- **Error Description**:  
+  The GitHub Pages site is not loading, which typically happens when GitHub Pages is not configured properly for the repository.
+
+- **Root Cause**:  
+  GitHub Pages may not be set up correctly for the repository, or there might be a misconfiguration that prevents the page from being published or accessed.
+
+- **Steps to Fix**:  
+  1. **Check if GitHub Pages is set up**:  
+     Go to the experiment repository’s main page on GitHub.
+  2. **Access repository settings**:  
+     Click the "Settings" button located near the top-right corner of the page.
+  3. **Scroll to GitHub Pages section**:  
+     Scroll down the settings page to find the "Pages" section.
+  4. **Verify publication**:  
+     If GitHub Pages is set up correctly, you should see a message that says, _"Your site is published at [experiment site URL]._  
+     This message confirms that the site is live and can be accessed via the provided URL.
+
+- **Solution/Fix**:
+  1. If GitHub Pages is not set up or the site is not live, configure the GitHub Pages settings:
+     - Choose the correct source branch (gh-pages) for your Pages site.
+     - Save the settings.
+  2. Once the page is published, recheck the "GitHub Pages" section for the confirmation message and the live URL.
+
+- **Post-Fix Verification**:  
+  After configuring GitHub Pages, visit the published URL to confirm that the site is working as expected.
+
+
+#### 5) Why does the build process exit with code 128?
+
+- **Problem**:  
+  The build process for the experiment exits unexpectedly with an error code 128.
+
+- **Error Description**:  
+  This error typically indicates that there are unexpected or extra files present in the repository that interfere with the build process.
+
+- **Root Cause**:  
+  The primary cause of this error is the presence of extra files outside the designated simulation folder of the experiment. Any files that are not part of the expected structure can lead to the build failing and returning an exit code of 128.
+
+- **Solution/Fix**:  
+  1. **Check for extra files**: Inspect the repository to identify any files that are not located in the designated simulation folder.
+  2. **Move or remove extra files**: 
+     - Move any extra files into the simulation folder if they are needed for the experiment.
+     - If certain files are not necessary, remove them from the repository entirely.
+  3. **Re-run the build process**: After ensuring that all files are correctly placed, attempt to build the experiment again.
+
+- **Post-Fix Verification**:  
+  Once the extra files are addressed, re-run the build process and verify that it completes successfully without exiting with code 128.
+
+- **Lessons Learned**:  
+  1. Maintain a clean repository by regularly checking for and organizing files to prevent build issues.
+  2. Establish clear guidelines for file organization within the experiment to avoid similar errors in the future.
+
+
+
 #### Q) Pipeline worked in the last iteration but not working in this iteration. Why? (JSON)
   - Verify that your workflow file ([`.github/workflows/deployment-script.yml`](https://github.com/virtual-labs/exp-bubble-sort-iiith/blob/main/.github/workflows/deployment-script.yml) or a similar name) is correctly set up and has no syntax errors. Ensure the file structure, event triggers, job steps, and actions are adequately defined.
   - Go to the Actions tab in your GitHub repository to check the status of your GitHub Actions. Look for failed or errored workflows, and select the specific run to view more details. 
   - GitHub Actions provides logs for each workflow run. These logs contain detailed information about the execution of each step in your workflow. Examine the logs to identify any errors or warnings, which can help you pinpoint the cause of the issue.
   - Most of the issues are due to syntax issues in JSON files(Expecting the audience to know JSON).
   - Identify the JSON file and report to the developer to fix the syntax. 
-
-#### Q) GitHub pages not working. Why? (Pages not working)
-  - This happens when GitHub pages are not configured properly.
-  - Check if GitHub Pages are set up for the experiment repository.
-  - Go to the experiment repository's main page on GitHub.
-  - Look for the "Settings" button near the top right corner of the page and click on it. 
-  - Scroll down to the "GitHub Pages" section. 
-  - If GitHub Pages are set up for the repository, you should see a message that says, "Your site is published at [experiment site URL]." This indicates that the GitHub page is live and can be accessed via the URL provided.
 
 
 #### Q) Everything has been setup properly but why is still CI\CD pipeline failed to execute? (Errored Workflow)
@@ -240,17 +317,6 @@ In summary, this YAML file describes a GitHub Actions workflow that builds an ex
   - Verify Tag Consistency: Ensure that the tags used in the lab descriptor file match the actual tags in your codebase. Inconsistencies can lead to unexpected behavior.
   - Confirm Code Merge: Verify that the code for the malfunctioning experiment(s) has been successfully merged from the testing branch into the main branch. Unmerged code changes won't be reflected in the hosted lab.
   - Error Logs: If the above steps don't resolve the issue, consult the error logs associated with the virtual lab environment. These logs can provide valuable clues about the specific cause of the problem.
-
-#### Q) "FATAL ERROR: Ineffective mark-compacts near heap limit Allocation failed - JavaScript heap out of memory" error when building a lab on AWS using npm labgen. How can I fix this?
-  - Open the terminal. Enter the following code to increase the memory for JavaScript:
-    ```
-    export NODE_OPTIONS=--max_old_space_size=4096
-      
-#### Q) Why are some experiments not building successfully after the workflow completes in a lab?
-  - Invalid File in an Experiment: If the workflow has completed but some experiments are not building, it's likely that one or more of those experiments contains an invalid file.
-  - Check for Errors: Carefully examine the experiment files, especially JSON files, for any syntax errors, missing data, or incorrect formatting.
-  - Fix and Retry: Once you've identified and corrected the invalid file, try rebuilding the lab to see if the experiment now builds successfully.
-
 
 
 
