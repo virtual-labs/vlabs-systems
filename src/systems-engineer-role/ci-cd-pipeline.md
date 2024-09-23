@@ -196,6 +196,31 @@ In summary, this YAML file describes a GitHub Actions workflow that builds an ex
   - Invalid File in an Experiment: If the workflow has completed but some experiments are not building, it's likely that one or more of those experiments contains an invalid file.
   - Check for Errors: Carefully examine the experiment files, especially JSON files, for any syntax errors, missing data, or incorrect formatting.
   - Fix and Retry: Once you've identified and corrected the invalid file, try rebuilding the lab to see if the experiment now builds successfully.
+
+
+#### Q) "MaxListenersExceededWarning: Possible EventEmitter memory leak detected. 31 finish listeners added to [PassThrough]. Use emitter.setMaxListeners() to increase limit". How to troubleshoot this error?
+
+- **Problem**:  
+  During the lab deployment, several experiments failed to build. Out of 10 experiments, only 5 were successfully built, and the remaining experiments were skipped. This inconsistency in the deployment workflow needs to be addressed to ensure all experiments are processed correctly.
+
+- **Error Description**:  
+  Upon reviewing the GitHub Actions workflow logs, an error message appeared during the build process:  
+  **"MaxListenersExceededWarning: Possible EventEmitter memory leak detected. 31 finish listeners added to [PassThrough]. Use emitter.setMaxListeners() to increase limit."**  
+  Although this warning did not completely halt the deployment, it caused the build process for certain experiments to stop while allowing the rest of the deployment to continue. This resulted in only a subset of the experiments being built.
+
+- **Root Cause**:  
+  The root cause of this issue stems from **invalid JSON files** within some of the experiments. If a particular experiment contains an invalid or malformed JSON file, the build process for that experiment is terminated, leading to the warning message. In this case, if the invalid file occurs in the 6th experiment, the first 5 experiments will build successfully, and the error will manifest when the system tries to process the faulty experiment.
+
+- **Solution/Fix**:
+  1. **Identify the problematic experiment**: Review the GitHub Actions workflow logs to find the point where the deployment stops building. The last successfully built experiment will help pinpoint where the error occurred.
+  2. **Locate the invalid JSON file**: Navigate to the repository for the experiment immediately following the last successful build. Check the JSON files in that experiment, as they are likely the source of the issue.
+  3. **Validate the JSON files**: Use a JSON validator, such as [JSONLint](https://jsonlint.com/), to identify and correct any syntax errors in the JSON files. This may include missing commas, incorrect brackets, or invalid data types.
+  4. **Rebuild the lab**: After correcting the invalid JSON files, trigger the lab deployment again. Verify that all experiments, including those previously skipped, are built successfully.
+
+- **Post-Fix Verification**:  
+  After applying the fix, re-run the GitHub Actions workflow and ensure that all experiments, including the previously skipped ones, are built without any errors or warnings in the logs. Confirm that the `MaxListenersExceededWarning` no longer appears and that the full deployment process completes successfully
+
+
 ## Why CI/CD
 - Virtual Labs employs Continuous Integration (CI) and Continuous Deployment (CD) practices to ensure a smooth and efficient development process. By deploying code to GitHub Pages for testing before moving it to production on AWS, Virtual Labs achieves several vital benefits:
 1. **Reduced Error Rates:** CI/CD helps identify and fix errors quickly by automatically building and deploying code changes. This practice minimizes the chances of human errors and results in higher-quality software.
