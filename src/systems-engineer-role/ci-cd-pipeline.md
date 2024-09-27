@@ -155,8 +155,7 @@ In summary, this YAML file describes a GitHub Actions workflow that builds an ex
 ## Troubleshooting Experiment Deployment Script
 - This section briefly discusses managing or troubleshooting GitHub Actions for deploying code to GitHub Pages.
 
-
-####  <span style="color: red;"> 1) "MaxListenersExceededWarning: Possible EventEmitter memory leak detected. 31 finish listeners added to [PassThrough]. Use emitter.setMaxListeners() to increase limit". How to troubleshoot this error?</span>
+#### 1) "MaxListenersExceededWarning: Possible EventEmitter memory leak detected. 31 finish listeners added to [PassThrough]. Use emitter.setMaxListeners() to increase limit". How to troubleshoot this error?
 
 - **Problem**:  
   During the lab deployment, several experiments failed to build. Out of 10 experiments, only 5 were successfully built, and the remaining experiments were skipped. This inconsistency in the deployment workflow needs to be addressed to ensure all experiments are processed correctly.
