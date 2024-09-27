@@ -155,7 +155,8 @@ In summary, this YAML file describes a GitHub Actions workflow that builds an ex
 ## Troubleshooting Experiment Deployment Script
 - This section briefly discusses managing or troubleshooting GitHub Actions for deploying code to GitHub Pages.
 
-#### 1) "MaxListenersExceededWarning: Possible EventEmitter memory leak detected. 31 finish listeners added to [PassThrough]. Use emitter.setMaxListeners() to increase limit". How to troubleshoot this error?
+
+####  <span style="color: red;"> 1) "MaxListenersExceededWarning: Possible EventEmitter memory leak detected. 31 finish listeners added to [PassThrough]. Use emitter.setMaxListeners() to increase limit". How to troubleshoot this error?</span>
 
 - **Problem**:  
   During the lab deployment, several experiments failed to build. Out of 10 experiments, only 5 were successfully built, and the remaining experiments were skipped. This inconsistency in the deployment workflow needs to be addressed to ensure all experiments are processed correctly.
@@ -178,7 +179,7 @@ In summary, this YAML file describes a GitHub Actions workflow that builds an ex
   After applying the fix, re-run the GitHub Actions workflow and ensure that all experiments, including the previously skipped ones, are built without any errors or warnings in the logs. Confirm that the `MaxListenersExceededWarning` no longer appears and that the full deployment process completes successfully
 
 
-#### 2) "warning: Could not find remote branch v1.0.0 to clone." "fatal: Remote branch v1.0.0 not found in upstream origin" How to troubleshoot this?
+#### 2) "Warning: Could not find remote branch v1.0.0 to clone." "fatal: Remote branch v1.0.0 not found in upstream origin" How to troubleshoot this?
 
 - **Problem**:  
   During the lab deployment, several experiments failed to build. Out of 10 experiments, only 5 were successfully built, and the remaining experiments were skipped. This issue needs to be fixed to ensure all experiments are properly processed.
@@ -289,8 +290,9 @@ In summary, this YAML file describes a GitHub Actions workflow that builds an ex
   Once the extra files are addressed, re-run the build process and verify that it completes successfully without exiting with code 128.
 
 - **Lessons Learned**:  
-  1. Maintain a clean repository by regularly checking for and organizing files to prevent build issues.
-  2. Establish clear guidelines for file organization within the experiment to avoid similar errors in the future.
+  1. Do not add any other files in the repository.
+  2. Maintain a clean repository by regularly checking for and organizing files to prevent build issues.
+  3. Establish clear guidelines for file organization within the experiment to avoid similar errors in the future.
 
 
 
