@@ -292,8 +292,7 @@ In summary, this YAML file describes a GitHub Actions workflow that builds an ex
   1. Do not add any other files in the repository.
   2. Maintain a clean repository by regularly checking for and organizing files to prevent build issues.
   3. Establish clear guidelines for file organization within the experiment to avoid similar errors in the future.
-
-#### 6) Why do I get a "404" error when trying to access a Virtual Labs experiment after pushing a code change?
+## Q) Why do I get a "404" error when trying to access a Virtual Labs experiment after pushing a code change?
 
 - **Problem**:  
   After pushing a code change, attempting to access a Virtual Labs experiment results in a "404" error.
@@ -301,26 +300,33 @@ In summary, this YAML file describes a GitHub Actions workflow that builds an ex
 - **Error Description**:  
   A "404" error indicates that the requested resource could not be found. This typically occurs if the build process failed or if there are issues in the code that prevent the experiment from being served correctly.
 
-- **Solution/Fix**:
-  There are few possible solution for this error.
-  
-  1. **Check the deploy branch**: Go to the "Settings" section of the experiment repository.  
+- **Solution/Fix**:  
+  There are a few possible solutions for this error:
+
+  1. **Check the deploy branch**:
+     - Go to the "Settings" section of the experiment repository.  
      - Scroll down to the "GitHub Pages" section.
      - Ensure that the deploy branch is set to **`gh-pages`**.  
-     If the deploy branch is incorrectly configured, update it to `gh-pages`, then save the settings.
+     - If the deploy branch is incorrectly configured, update it to `gh-pages` and save the settings.
 
-  2. **Verify the build status**:  
-   Navigate to the latest commit in the GitHub repository and check if the build ran successfully. If the build failed, further investigation is required. If someone has renamed a file in the repository, the build will fail and show the following error:
-```
-ENOENT: no such file or directory, open '/home/runner/work/exp-kronig-penney-model-dei/exp-kronig-penney-model-dei/build/exp-kronig-penney-model-dei/simulation/index.html'
-```
-This error occurs because the build process is unable to find the file `index.html`. Ensure the file is correctly named as `index.html` to resolve the issue.
+  2. **Check the `gh-pages` branch**:  
+   - Go to the `gh-pages` branch of the repository.  
+   - Check if it contains a directory with the experiment name.  
+   - If the experiment folder exists in the `gh-pages` branch, this indicates the build has failed. You will need to verify the build status and troubleshoot further.
 
-  3. **Investigate the Build Directory**:  
+  3. **Verify the build status**:  
+     Navigate to the latest commit in the GitHub repository and check if the build ran successfully. If the build failed, further investigation is required. If someone has renamed a file in the repository, the build will fail and show the following error:
+  
+     ```
+     ENOENT: no such file or directory, open '/home/runner/work/exp-kronig-penney-model-dei/exp-kronig-penney-model-dei/build/exp-kronig-penney-model-dei/simulation/index.html'
+     ```
+     This error occurs because the build process is unable to find the file `index.html`. Ensure the file is correctly named as `index.html` to resolve the issue.
+
+  4. **Investigate the Build Directory**:  
      Examine the directory `home/build/repo_name` for any built or unbuilt sources. Identify and address any build errors to ensure that the build process completes successfully.
 
-  4. **Check for JSON Errors**:  
-     Many issues arise from errors in JSON files. Execute the JSON scripts in a JSON validator to identify and resolve any syntax or structural issues that may be causing the build to fail.
+  5. **Check for JSON Errors**:  
+     Many issues arise from errors in JSON files. Use a JSON validator to check and resolve any syntax or structural issues in the JSON files that may be causing the build to fail.
 
 - **Post-Fix Verification**:  
   After addressing any build errors and resolving JSON issues, re-run the build process. Once it completes successfully, attempt to access the Virtual Labs experiment again to confirm that the "404" error is resolved.
@@ -328,8 +334,7 @@ This error occurs because the build process is unable to find the file `index.ht
 - **Lessons Learned**:  
   1. Regularly monitor build statuses after code changes to catch errors early.
   2. Validate JSON files before pushing code to minimize issues related to malformed files.
-  3. Do not rename the files of index.html. 
-
+  3. Do not rename the `index.html` file.
 
 #### Q) Pipeline worked in the last iteration but not working in this iteration. Why? (JSON)
   - Verify that your workflow file ([`.github/workflows/deployment-script.yml`](https://github.com/virtual-labs/exp-bubble-sort-iiith/blob/main/.github/workflows/deployment-script.yml) or a similar name) is correctly set up and has no syntax errors. Ensure the file structure, event triggers, job steps, and actions are adequately defined.
