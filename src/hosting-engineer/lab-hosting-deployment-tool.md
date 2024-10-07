@@ -12,7 +12,7 @@ This tool is designed for hosting engineers of virtual labs responsible for depl
 
 Lab deployment involves committing descriptors, selecting workflows, and triggering processes. The Virtual Labs Workflow tool simplifies this by providing an interface for committing and triggering workflows for multiple labs with a single click. Additionally, it displays hosting information for deployed labs.
 
-## 4. User Interface
+## User Interface
 
 ### Searching Labs and Saving Descriptors
 
