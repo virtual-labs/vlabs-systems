@@ -292,7 +292,7 @@ In summary, this YAML file describes a GitHub Actions workflow that builds an ex
   1. Do not add any other files in the repository.
   2. Maintain a clean repository by regularly checking for and organizing files to prevent build issues.
   3. Establish clear guidelines for file organization within the experiment to avoid similar errors in the future.
-## Q) Why do I get a "404" error when trying to access a Virtual Labs experiment after pushing a code change?
+## 6) Why do I get a "404" error when trying to access a Virtual Labs experiment after pushing a code change?
 
 - **Problem**:  
   After pushing a code change, attempting to access a Virtual Labs experiment results in a "404" error.
@@ -336,7 +336,7 @@ In summary, this YAML file describes a GitHub Actions workflow that builds an ex
   2. Validate JSON files before pushing code to minimize issues related to malformed files.
   3. Do not rename the `index.html` file.
 
-#### Q) Pipeline worked in the last iteration but not working in this iteration. Why? (JSON)
+#### 7) Pipeline worked in the last iteration but not working in this iteration. Why? (JSON)
   - Verify that your workflow file ([`.github/workflows/deployment-script.yml`](https://github.com/virtual-labs/exp-bubble-sort-iiith/blob/main/.github/workflows/deployment-script.yml) or a similar name) is correctly set up and has no syntax errors. Ensure the file structure, event triggers, job steps, and actions are adequately defined.
   - Go to the Actions tab in your GitHub repository to check the status of your GitHub Actions. Look for failed or errored workflows, and select the specific run to view more details. 
   - GitHub Actions provides logs for each workflow run. These logs contain detailed information about the execution of each step in your workflow. Examine the logs to identify any errors or warnings, which can help you pinpoint the cause of the issue.
@@ -344,16 +344,78 @@ In summary, this YAML file describes a GitHub Actions workflow that builds an ex
   - Identify the JSON file and report to the developer to fix the syntax. 
 
 
-#### Q) Everything has been setup properly but why is still CI\CD pipeline failed to execute? (Errored Workflow)
+#### 8) Everything has been setup properly but why is still CI\CD pipeline failed to execute? (Errored Workflow)
   - By default, GitHub provides 2,000 pipeline Minutes (per month) and 500 MB Storage, sufficient for 100+ active repositories.
   - Workflow will fail to execute due to software and hardware issues from GitHub
   - Go to the Actions tab in your GitHub repository to check the status of your GitHub Actions. Look for failed or errored workflows, and select the specific run to view more details. 
   - Re-run the errored workflow to start the deployment of pages.
     
-#### Q) Hosted virtual lab experiments are not working as expected. Why?
+#### 9) Hosted virtual lab experiments are not working as expected. Why?
   - Verify Tag Consistency: Ensure that the tags used in the lab descriptor file match the actual tags in your codebase. Inconsistencies can lead to unexpected behavior.
   - Confirm Code Merge: Verify that the code for the malfunctioning experiment(s) has been successfully merged from the testing branch into the main branch. Unmerged code changes won't be reflected in the hosted lab.
   - Error Logs: If the above steps don't resolve the issue, consult the error logs associated with the virtual lab environment. These logs can provide valuable clues about the specific cause of the problem.
+
+### 10) Why do I get the error "uncaughtException: Cannot find module '.../experiment-descriptor.json'" during the build process?
+
+- **Problem**:  
+  During the build process, an uncaught exception error is encountered, stating that the `experiment-descriptor.json` file cannot be found.
+
+- **Error Description**:  
+  The error message typically looks like this:
+  error: uncaughtException: Cannot find module '/home/runner/work/lab-basic-electronics-virtual-laboratory-iitkgp/lab-basic-electronics-virtual-laboratory-iitkgp/ph3-lab-mgmt/lab_build/exprepos/ohm-law/experiment-descriptor.json'
+
+- **Root Cause**:  
+This error occurs because the build process is unable to locate the `experiment-descriptor.json` file for the specified experiment.
+This issue usually happens when the experiment tag mentioned in the repository or configuration file does not exist or is incorrect.
+
+- **Solution/Fix**:  
+1. **Check the experiment with the error**:  
+   Identify the specific experiment mentioned in the error (in this case, the "ohm-law" experiment) and verify its configuration.
+   
+2. **Verify the tags**:  
+   Ensure that the tag referenced for the experiment in the build files or descriptor is correct and exists in the repository. If the tag is missing or incorrect, update the tag to match the correct one.
+
+3. **Update the experiment configuration**:  
+   After verifying the correct tag, update the relevant experiment configuration files and ensure the `experiment-descriptor.json` file is accessible for the build.
+
+- **Post-Fix Verification**:  
+Once the tag and file path are corrected, re-run the build process. If the build completes successfully, the error should no longer appear.
+
+- **Lessons Learned**:  
+1. Double-check experiment tags and ensure they are correct and consistent across configuration files.
+2. Ensure all necessary files, including `experiment-descriptor.json`, are properly referenced in the build process.
+
+  
+## 11) Why does the lab build stop at one experiment with the error "MaxListenersExceededWarning: Possible EventEmitter memory leak detected"?
+
+- **Problem**:  
+  When triggering the lab build process, it stops at one experiment, and the following error is displayed:
+(node:1864) MaxListenersExceededWarning: Possible EventEmitter memory leak detected. 31 finish listeners added to [PassThrough]. Use emitter.setMaxListeners() to increase limit (Use node --trace-warnings ... to show where the warning was created)
+
+
+- **Error Description**:  
+This error is typically related to an issue in one of the experiments within the lab. It indicates that too many event listeners are being created, which suggests that a specific experiment is missing necessary files or directories.
+
+- **Root Cause**:  
+The root cause of this issue is often that one of the experiments in the repository does not have the required files or directories needed for the build process to complete successfully. This missing file or folder is causing the build to halt and trigger the warning.
+
+- **Solution/Fix**:  
+1. **Identify the experiment**:  
+   Look into the logs or identify the specific experiment where the build process stopped.
+   
+2. **Check for missing files or directories**:  
+   Navigate to the experiment's repository and verify if it has all the necessary files and directories. In particular, ensure that critical files like `experiment-descriptor.json`, `index.html`, or other required build components are present.
+
+3. **Add the missing files**:  
+   If any files or directories are missing, add them to the experiment's repository. Ensure that all the files required for the build are included.
+
+- **Post-Fix Verification**:  
+After adding the missing files, re-run the build process. Once the build completes without any warnings or errors, the issue should be resolved.
+
+- **Lessons Learned**:  
+1. Ensure that each experiment in the repository has the required files and directories to avoid build interruptions.
+2. Regularly review logs during the build process to catch and resolve errors early.
+3. Consider increasing the limit for event listeners in Node.js using `emitter.setMaxListeners()` if the issue persists in certain workflows.
 
 
 
