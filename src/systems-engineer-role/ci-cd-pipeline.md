@@ -417,6 +417,23 @@ After adding the missing files, re-run the build process. Once the build complet
 2. Regularly review logs during the build process to catch and resolve errors early.
 3. Consider increasing the limit for event listeners in Node.js using `emitter.setMaxListeners()` if the issue persists in certain workflows.
 
+## 12) Why are some experiments in the lab showing up as empty templates after deployment?
+**Problem:**  
+While building the lab with all experiments, a few experiments appeared as template experiments without any actual content.
+
+**Error Description:**  
+Some experiments in the deployed lab do not display their expected content and instead show default or placeholder/template structures.
+
+**Root Cause:**  
+The tags for the experiments were created *before* the latest changes were pushed to the repository. As a result, those tagged versions did not include the updated content. Since deployment used the old tag, it did not reflect the latest changes.
+
+**Solution / Fix:**  
+Before deploying the lab:
+1. Ensure that all changes are pushed to the repository.
+2. Only then, create or update the relevant tags.
+3. Use the newly created/updated tags for deployment to ensure the latest changes are included.
+
+> Tag **after** pushing changes to ensure updates are reflected in the deployment.
 
 
 ## Why CI/CD
