@@ -315,21 +315,34 @@ In summary, this YAML file describes a GitHub Actions workflow that builds an ex
    - If the experiment folder exists in the `gh-pages` branch, this indicates the build has failed. You will need to verify the build status and troubleshoot further.
 
   3. **Verify the build status**:  
-     Navigate to the latest commit in the GitHub repository and check if the build ran successfully. If the build failed, further investigation is required. If someone has renamed a file in the repository, the build will fail and show the following error:
+     Navigate to the latest commit in the GitHub repository and check if the build ran successfully. If the build failed, further investigation is required. If someone has renamed a file in the repository, the build will fail and show the following errors:
   
      ```
      ENOENT: no such file or directory, open '/home/runner/work/exp-kronig-penney-model-dei/exp-kronig-penney-model-dei/build/exp-kronig-penney-model-dei/simulation/index.html'
      ```
      This error occurs because the build process is unable to find the file `index.html`. Ensure the file is correctly named as `index.html` to resolve the issue.
 
-  4. **Investigate the Build Directory**:  
-     Examine the directory `home/build/repo_name` for any built or unbuilt sources. Identify and address any build errors to ensure that the build process completes successfully.
+      ```
+     LaTeX-incompatible input and strict mode is set to 'warn': Unrecognized Unicode character "�" (55349) [unknownSymbol]
+2025-05-27T11:59:00.674Z error: uncaughtException: Font metrics not found for font
+     ```
+     This error typically occurs when one of the files contains an unrecognized or invalid Unicode character (such as "�"). Since LaTeX strict mode is enabled, such characters are not tolerated and cause the experiment build to fail. 
 
-  5. **Check for JSON Errors**:  
-     Many issues arise from errors in JSON files. Use a JSON validator to check and resolve any syntax or structural issues in the JSON files that may be causing the build to fail.
+  5. **Investigate the Build Directory**:  
+     - Examine the directory `home/build/repo_name` for any built or unbuilt sources. Identify and address any build errors to ensure that the build process completes successfully.
+     - if the error is of unrecognized unicode character then Navigate to the GitHub repository of the experiment showing the error.
+     - Click on the "Actions" tab. Look for the most recent workflow run related to the merge (typically titled Merge pull request from virtual-labs/dev).
+     - Select the failed workflow run.
+     - Expand the steps and go to Step 4: Run git clone --depth=1 https://github.com/virtual-labs/ph3-lab-mgmt.
+
+  6. **Check for JSON Errors**:  
+     - Many issues arise from errors in JSON files. Use a JSON validator to check and resolve any syntax or structural issues in the JSON files that may be causing the build to fail.
+     - Carefully examine the output to identify which file is causing the error.Look for lines referencing Unicode errors or LaTeX issues.
 
 - **Post-Fix Verification**:  
-  After addressing any build errors and resolving JSON issues, re-run the build process. Once it completes successfully, attempt to access the Virtual Labs experiment again to confirm that the "404" error is resolved.
+  - After addressing any build errors and resolving JSON issues, re-run the build process. Once it completes successfully, attempt to access the Virtual Labs experiment again to confirm that the "404" error is resolved.
+  - Open the identified file in a UTF-8-compatible editor. Locate and remove or replace the invalid character. Save the file with UTF-8 encoding to avoid future issues.
+  - Once the file is corrected, push the changes and let the build process run again to verify the fix.
 
 - **Lessons Learned**:  
   1. Regularly monitor build statuses after code changes to catch errors early.
