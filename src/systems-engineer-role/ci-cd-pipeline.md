@@ -321,11 +321,10 @@ In summary, this YAML file describes a GitHub Actions workflow that builds an ex
      ENOENT: no such file or directory, open '/home/runner/work/exp-kronig-penney-model-dei/exp-kronig-penney-model-dei/build/exp-kronig-penney-model-dei/simulation/index.html'
      ```
      This error occurs because the build process is unable to find the file `index.html`. Ensure the file is correctly named as `index.html` to resolve the issue.
-
-      ```
+     
+    ```
      LaTeX-incompatible input and strict mode is set to 'warn': Unrecognized Unicode character "�" (55349) [unknownSymbol]
-2025-05-27T11:59:00.674Z error: uncaughtException: Font metrics not found for font
-     ```
+    ```
      This error typically occurs when one of the files contains an unrecognized or invalid Unicode character (such as "�"). Since LaTeX strict mode is enabled, such characters are not tolerated and cause the experiment build to fail. 
 
   5. **Investigate the Build Directory**:  
