@@ -320,13 +320,13 @@ In summary, this YAML file describes a GitHub Actions workflow that builds an ex
      ```
      ENOENT: no such file or directory, open '/home/runner/work/exp-kronig-penney-model-dei/exp-kronig-penney-model-dei/build/exp-kronig-penney-model-dei/simulation/index.html'
      ```
-     - This error occurs because the build process is unable to find the file `index.html`. Ensure the file is correctly named as `index.html` to resolve the issue.
+     - This error occurs because the build process is unable to find the file `index.html`. Ensure the file is correctly named as `index.html` to                resolve the issue.
 
-  4. **Other error**
+  4. **Other possible error**
     ```
      LaTeX-incompatible input and strict mode is set to 'warn': Unrecognized Unicode character "�" (55349) [unknownSymbol]
     ```
-    - This error typically occurs when one of the files contains an unrecognized or invalid Unicode character (such as "�"). Since LaTeX strict mode is enabled, such characters are not tolerated and cause the experiment build to fail. 
+      - This error typically occurs when one of the files contains an unrecognized or invalid Unicode character (such as "�"). Since LaTeX strict mode           is enabled, such characters are not tolerated and cause the experiment build to fail. 
 
   5. **Investigate the Build Directory**:  
      - Examine the directory `home/build/repo_name` for any built or unbuilt sources. Identify and address any build errors to ensure that the build process completes successfully.
@@ -335,9 +335,9 @@ In summary, this YAML file describes a GitHub Actions workflow that builds an ex
      - Select the failed workflow run.
      - Expand the steps and go to Step 4: Run git clone --depth=1 https://github.com/virtual-labs/ph3-lab-mgmt.
 
-  6. **Check for JSON Errors**:  
-     - Many issues arise from errors in JSON files. Use a JSON validator to check and resolve any syntax or structural issues in the JSON files that may be causing the build to fail.
-     - Carefully examine the output to identify which file is causing the error.Look for lines referencing Unicode errors or LaTeX issues.
+  6. **Check for the Errors**:  
+     - **For Json Errors:** Many issues arise from errors in JSON files. Use a JSON validator to check and resolve any syntax or structural issues in the JSON files that may be causing the build to fail.
+     - **For Latex Errors:** Carefully examine the output to identify which file is causing the error.Look for lines referencing Unicode errors or LaTeX issues.
 
 - **Post-Fix Verification**:  
   - After addressing any build errors and resolving JSON issues, re-run the build process. Once it completes successfully, attempt to access the Virtual Labs experiment again to confirm that the "404" error is resolved.
