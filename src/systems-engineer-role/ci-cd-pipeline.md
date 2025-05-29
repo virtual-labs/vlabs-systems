@@ -293,63 +293,64 @@ In summary, this YAML file describes a GitHub Actions workflow that builds an ex
   2. Maintain a clean repository by regularly checking for and organizing files to prevent build issues.
   3. Establish clear guidelines for file organization within the experiment to avoid similar errors in the future.
 ## 6) Why do I get a "404" error when trying to access a Virtual Labs experiment after pushing a code change?
+ 
+- **Reason 1**:  
+    The experiment build fails because of invalid json file.
 
-- **Problem**:  
-  After pushing a code change, attempting to access a Virtual Labs experiment results in a "404" error.
+- **Root Cause**:
 
-- **Error Description**:  
-  A "404" error indicates that the requested resource could not be found. This typically occurs if the build process failed or if there are issues in the code that prevent the experiment from being served correctly.
-
-- **Solution/Fix**:  
-  There are a few possible solutions for this error:
-
-  1. **Check the deploy branch**:
-     - Go to the "Settings" section of the experiment repository.  
-     - Scroll down to the "GitHub Pages" section.
-     - Ensure that the deploy branch is set to **`gh-pages`**.  
-     - If the deploy branch is incorrectly configured, update it to `gh-pages` and save the settings.
-
-  2. **Check the `gh-pages` branch**:  
-   - Go to the `gh-pages` branch of the repository.  
-   - Check if it contains a directory with the experiment name.  
-   - If the experiment folder exists in the `gh-pages` branch, this indicates the build has failed. You will need to verify the build status and troubleshoot further.
-
-  3. **Verify the build status**:  
-     Navigate to the latest commit in the GitHub repository and check if the build ran successfully. If the build failed, further investigation is required. If someone has renamed a file in the repository, the build will fail and show the following errors:
-  
-     ```
-     ENOENT: no such file or directory, open '/home/runner/work/exp-kronig-penney-model-dei/exp-kronig-penney-model-dei/build/exp-kronig-penney-model-dei/simulation/index.html'
-     ```
-     - This error occurs because the build process is unable to find the file `index.html`. Ensure the file is correctly named as `index.html` to                resolve the issue.
-
-  4. **Other possible error**
-    ```
-     LaTeX-incompatible input and strict mode is set to 'warn': Unrecognized Unicode character "�" (55349) [unknownSymbol]
-    ```
+  - Misconfiguration of the deploy branch or build errors.
+  - A common build error involves an invalid JSON file or an invalid. While GitHub Actions might show the process as completed, these compatibility errors won’t halt the build. As a result, the repository may create a subfolder and push all files into it, leading to a broken experiment link.
     
-  - This error typically occurs when one of the files contains an unrecognized or invalid Unicode character (such as "�"). Since LaTeX strict mode           is enabled, such characters are not tolerated and cause the experiment build to fail. 
+- **Solution**:
 
-  5. **Investigate the Build Directory**:  
-     - Examine the directory `home/build/repo_name` for any built or unbuilt sources. Identify and address any build errors to ensure that the build process completes successfully.
-     - if the error is of unrecognized unicode character then Navigate to the GitHub repository of the experiment showing the error.
-     - Click on the "Actions" tab. Look for the most recent workflow run related to the merge (typically titled Merge pull request from virtual-labs/dev).
-     - Select the failed workflow run.
-     - Expand the steps and go to Step 4: Run git clone --depth=1 https://github.com/virtual-labs/ph3-lab-mgmt.
+  1. Verify the deploy branch is set to **gh-pages**.
+  2. To set deploy branch to **gh-pages** open the setting of experiment repository. Navigate to **Pages** under **code and automation**. Click to open.
+  3. Locate the **Branch** under the **Build and deployment** head.If the deploy branch is incorrectly configured, update it to **gh-pages** and save the settings.
+  4. Open the experiment repository where the error occurred.
+  5. Navigate to the "**Actions**" tab on GitHub.
+  6. Locate the the latest workflow, titled **Merge pull request #(some number) from virtual-labs/dev** and click it to open.
+  7. It will redirect to the **Summary** of the workflow. Click on **build** under **Jobs**. This will open steps of the build.
+  8. Expand the Step titled **Run git clone --depth=1 https://github.com/virtual-labs/ph3-lab-mgmt** and inspect the build logs. You will see the following error ```error: uncaughtException: /home/runner/work/_**exp-repo-name**_/_**exp-repo-name**_/build/_**exp-repo-name**_/_**filename**_.json: Unexpected token 	 in JSON at position 203
+SyntaxError: /home/runner/work/_**exp-repo-name**_/_**exp-repo-name**_/build/_**exp-repo-name**_/_**filename**_.json: Unexpected token 	 in JSON at position 203
 
-  6. **Check for the Errors**:  
-     - **For Json Errors:** Many issues arise from errors in JSON files. Use a JSON validator to check and resolve any syntax or structural issues in the JSON files that may be causing the build to fail.
-     - **For Latex Errors:** Carefully examine the output to identify which file is causing the error.Look for lines referencing Unicode errors or LaTeX issues.
+  10. Open the error json file which as mentioned above.
+  11. Make changes to the above file in the dev branch and merge it to the testing branch.
+  12. Check if your build was successful in https://virtual-labs.github.io/**_your-repo-name_**/
 
-- **Post-Fix Verification**:  
-  - After addressing any build errors and resolving JSON issues, re-run the build process. Once it completes successfully, attempt to access the Virtual Labs experiment again to confirm that the "404" error is resolved.
-  - Open the identified file in a UTF-8-compatible editor. Locate and remove or replace the invalid character. Save the file with UTF-8 encoding to avoid future issues.
-  - Once the file is corrected, push the changes and let the build process run again to verify the fix.
+- **Post-Fix Verification**:
+  
+  - Access the experiment URL to confirm the issue is resolved.
+  - Commit and push the corrected file to the repository.
 
-- **Lessons Learned**:  
-  1. Regularly monitor build statuses after code changes to catch errors early.
-  2. Validate JSON files before pushing code to minimize issues related to malformed files.
-  3. Do not rename the `index.html` file.
+- **Reason 2**:
+  
+  - The experiment build fails because of unrecognized Unicode character
 
+- **Root Cause**:
+  
+  - Common build error involves an invalid or unrecognized Unicode character. While GitHub Actions might show the process as completed, these compatibility errors won’t halt the build. As a result, the repository may create a subfolder and push all files into it, leading to a broken experiment link.
+
+- **Solution**:
+  1. Open the experiment repository where the error occurred.
+  2. Navigate to the "**Actions**" tab on GitHub.
+  3. Locate the the latest workflow, titled **Merge pull request #(some number) from virtual-labs/dev** and click it to open.
+  4. It will redirect to the **Summary** of the workflow. Click on **build** under **Jobs**. This will open steps of the build. 
+  5. Expand the Step titled **Run git clone --depth=1 https://github.com/virtual-labs/ph3-lab-mgmt** and inspect the build logs. You will see the following error ```error: uncaughtException: Font metrics not found for font: .
+Error: Font metrics not found for font: .```
+  6.  To identify the file containing an unrecognized Unicode character: Open your browser and go to:
+       https://virtual-labs.github.io/**_your-repo-name_/_your-repo-name_**/
+   7. Use the side menu to navigate through each page.
+   8. Look for any page that appears blank—this indicates that the build likely failed just before rendering that page.
+   9. Identify the corresponding .md file for the blank page  or the page before that and inspect it for any unrecognized Unicode characters that may be causing the issue.
+   10. Identify the specific file where the unrecognized character error is reported.
+   11. Make changes to the above file in the dev branch and merge it to the testing branch.
+   12. Check if your build was successful in https://virtual-labs.github.io/**_your-repo-name_**/
+
+- **Post-Fix Verification**:
+  
+  Access the experiment URL to confirm the issue is resolved.
+  Commit and push the corrected file to the repository.
 #### 7) Pipeline worked in the last iteration but not working in this iteration. Why? (JSON)
   - Verify that your workflow file ([`.github/workflows/deployment-script.yml`](https://github.com/virtual-labs/exp-bubble-sort-iiith/blob/main/.github/workflows/deployment-script.yml) or a similar name) is correctly set up and has no syntax errors. Ensure the file structure, event triggers, job steps, and actions are adequately defined.
   - Go to the Actions tab in your GitHub repository to check the status of your GitHub Actions. Look for failed or errored workflows, and select the specific run to view more details. 
