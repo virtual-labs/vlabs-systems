@@ -326,7 +326,8 @@ In summary, this YAML file describes a GitHub Actions workflow that builds an ex
     ```
      LaTeX-incompatible input and strict mode is set to 'warn': Unrecognized Unicode character "�" (55349) [unknownSymbol]
     ```
-      - This error typically occurs when one of the files contains an unrecognized or invalid Unicode character (such as "�"). Since LaTeX strict mode           is enabled, such characters are not tolerated and cause the experiment build to fail. 
+    
+  - This error typically occurs when one of the files contains an unrecognized or invalid Unicode character (such as "�"). Since LaTeX strict mode           is enabled, such characters are not tolerated and cause the experiment build to fail. 
 
   5. **Investigate the Build Directory**:  
      - Examine the directory `home/build/repo_name` for any built or unbuilt sources. Identify and address any build errors to ensure that the build process completes successfully.
