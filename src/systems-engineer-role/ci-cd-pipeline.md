@@ -349,7 +349,7 @@ Error: Font metrics not found for font: .```
   
   Access the experiment URL to confirm the issue is resolved.
   Commit and push the corrected file to the repository.
-#### 7) Pipeline worked in the last iteration but not working in this iteration. Why? (JSON)
+## 7) Pipeline worked in the last iteration but not working in this iteration. Why? (JSON)
   - Verify that your workflow file ([`.github/workflows/deployment-script.yml`](https://github.com/virtual-labs/exp-bubble-sort-iiith/blob/main/.github/workflows/deployment-script.yml) or a similar name) is correctly set up and has no syntax errors. Ensure the file structure, event triggers, job steps, and actions are adequately defined.
   - Go to the Actions tab in your GitHub repository to check the status of your GitHub Actions. Look for failed or errored workflows, and select the specific run to view more details. 
   - GitHub Actions provides logs for each workflow run. These logs contain detailed information about the execution of each step in your workflow. Examine the logs to identify any errors or warnings, which can help you pinpoint the cause of the issue.
@@ -357,18 +357,34 @@ Error: Font metrics not found for font: .```
   - Identify the JSON file and report to the developer to fix the syntax. 
 
 
-#### 8) Everything has been setup properly but why is still CI\CD pipeline failed to execute? (Errored Workflow)
+## 8) Everything has been setup properly but why is still CI\CD pipeline failed to execute? (Errored Workflow)
   - By default, GitHub provides 2,000 pipeline Minutes (per month) and 500 MB Storage, sufficient for 100+ active repositories.
   - Workflow will fail to execute due to software and hardware issues from GitHub
   - Go to the Actions tab in your GitHub repository to check the status of your GitHub Actions. Look for failed or errored workflows, and select the specific run to view more details. 
   - Re-run the errored workflow to start the deployment of pages.
     
-#### 9) Hosted virtual lab experiments are not working as expected. Why?
+## 9) Hosted virtual lab experiments are not working as expected. Why?
   - Verify Tag Consistency: Ensure that the tags used in the lab descriptor file match the actual tags in your codebase. Inconsistencies can lead to unexpected behavior.
   - Confirm Code Merge: Verify that the code for the malfunctioning experiment(s) has been successfully merged from the testing branch into the main branch. Unmerged code changes won't be reflected in the hosted lab.
   - Error Logs: If the above steps don't resolve the issue, consult the error logs associated with the virtual lab environment. These logs can provide valuable clues about the specific cause of the problem.
+  - Aws Cache memory: If your experiment updates are not reflecting on the website, it may be due to Amazon CloudFront’s cache (memory) retaining old content. This is a known behavior, and to resolve it, you need to clear the cache by creating an invalidation in CloudFront.
 
-### 10) Why do I get the error "uncaughtException: Cannot find module '.../experiment-descriptor.json'" during the build process?
+#### How to Create and Run an Invalidation in AWS CloudFront:
+- Log in to the AWS Management Console.
+- Navigate to CloudFront from the Services menu.
+- Select your CloudFront Distribution (identified by a Distribution ID).
+- Go to the "Invalidations" tab.
+- Click “Create Invalidation”.
+- In the “Object Paths” field, enter the paths you want to invalidate. Use:
+```
+/* 
+/
+```
+- to clear all cached files.
+- Click “Invalidate”.
+- Wait a few minutes for the invalidation to complete. Once done, the latest updates should be visible on your website.
+
+## 10) Why do I get the error "uncaughtException: Cannot find module '.../experiment-descriptor.json'" during the build process?
 
 - **Problem**:  
   During the build process, an uncaught exception error is encountered, stating that the `experiment-descriptor.json` file cannot be found.
