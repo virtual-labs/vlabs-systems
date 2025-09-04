@@ -195,7 +195,7 @@ This is a step-by-step instructions to configure **AWS CloudFront** and **Route 
    - **E2ILSB88T57Y1G** → Phase 3 labs and other domain labs of extended Phase 3 
    <img src="./img/cloudfront-distributions.png">
      
-4. Click on the distribution that corresponds to the phase in which your lab is hosted.
+4. Click on the distribution that corresponds to the phase in which the lab is hosted.
 5. A list of experiment URLs will appear. Click on the **Edit** button.
     <img src="./img/cloudfront-exp-url-list.png">
 6. Scroll down and click **Add item**.
