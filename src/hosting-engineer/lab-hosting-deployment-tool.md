@@ -192,7 +192,7 @@ This is a step-by-step instructions to configure **AWS CloudFront** and **Route 
    
    - **E1EZV0HOJ842XS** → Phase 2 labs  
    - **E2XT1CMSNG5NJ** → Extended Phase 3 labs (CSE, ECE, MECH)  
-   - **E2ILSB88T57Y1G** → Phase 3 labs and extended Phase 3 other domains
+   - **E2ILSB88T57Y1G** → Phase 3 labs and other domain labs of extended Phase 3 
    <img src="./img/cloudfront-distributions.png">
      
 4. Click on the distribution that corresponds to the phase in which your lab is hosted.
