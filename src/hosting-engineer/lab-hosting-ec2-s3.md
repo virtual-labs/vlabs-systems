@@ -1,4 +1,4 @@
-# User Documentation: Hosting of Virtual Labs using deployment tool which is prviously hosted on EC2.
+# User Documentation: Hosting of Virtual Labs using deployment tool which previously hosted on EC2.
 
 ## Introduction
 
