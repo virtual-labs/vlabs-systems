@@ -1,44 +1,80 @@
-### Rehosting of an existing lab in S3
+# User Documentation: Re-Hosting of existing Virtual Labs using deployment tool
 
-### Steps to Configure
+The Virtual Labs Workflow tool streamlines the process of configuring and triggering the deployment of multiple labs. Previously, this was done manually through GitHub, requiring hosting engineers to deploy each lab separately.
 
-#### 1. Access AWS Console
-- Go to [AWS Management Console](https://console.aws.amazon.com/).
-- Log in using your AWS credentials.  
-<img src="./img/aws-login-page.png">
+## Prerequisites
+- Ensure that you have the following before proceeding:
+  - A GitHub account with access to the [Virtual Labs GitHub Organisation](https://github.com/virtual-labs).
+  - Access to [Virtual Labs GA4 Looker Studio](https://lookerstudio.google.com/) for viewing lab analytics.
+  - Access to [Deployment tools](https://deploy.vlabs.ac.in/).
 
-#### 2. Configure CloudFront
-- In the search bar, type **CloudFront** and select it.
- <img src="./img/cloudfront-search.png"> 
-- The list of CloudFront Distributions will be displayed. Below are the relevant distributions:
-   
-   - **E1EZV0HOJ842XS** → Phase 2 labs  
-   - **E2XT1CMSNG5NJ** → Extended Phase 3 labs (CSE, ECE, MECH)  
-   - **E2ILSB88T57Y1G** → Phase 3 labs and other domain labs of extended Phase 3 
-   <img src="./img/cloudfront-distributions.png">
-- Click on the distribution that corresponds to the phase in which the lab is hosted.
+## Target User
 
-  #### 3. Configure Route 53
-- In the AWS search bar, type Route 53 and select it.
-  <img src="./img/route53.png">
+This tool is designed for hosting engineers of virtual labs responsible for deploying labs efficiently.
 
-- You will be redirected to the Route 53 Dashboard. Click on DNS Management (Hosted Zones).
-  <img src="./img/route53-hosted-zone.png">
+## Lab Deployment Process
 
-- From the list of hosted zones, select vlabs.ac.in.
-  <img src="./img/route53-vlabs.png">
+Lab deployment involves committing descriptors, selecting workflows, and triggering processes. The Virtual Labs Workflow tool simplifies this by providing an interface for committing and triggering workflows for multiple labs with a single click. Additionally, it displays hosting information for deployed labs.
 
-- In the search bar, type the URL of the lab that was re-hosted using the Lab Deployment Tool and press Enter.
-  <img src="./img/route53-vlabs-Search-record.png">
+## Process 
 
-- Select the checkbox next to the record. The record details will be displayed. Click on Edit record.
-  <img src="./img/route53-vlabs-Search-record-2.png">
+## User Interface
 
-- Ensure that the Alias toggle is enabled.
-  <img src="./img/route53-vlabs-Search-record-3.png">
-- Check under Route traffic to, is **Alias to CloudFront distributions**.
-- Check the appropriate CloudFront distribution is selected.
-- Click Save to apply the changes.
- <img src="./img/route53-vlabs-re-hosted-record-.png">
+**1. Searching Labs and Saving Descriptors**
+
+- **Login:**
+
+  - Users must log in using their GitHub credentials.
+  - Upon successful login, the dashboard is displayed.
+
+  <img src="./img/dashboard.png">
+
+- **Lab Search:**
+
+  - Users can search for labs by name, institute, etc.
+  - Clicking on a result loads the lab descriptor on the right half of the container.
+  - The descriptor is editable and can be saved using the "Save" button.
+  - The "Valid Descriptor" label indicates whether the loaded descriptor is valid.
+
+  <img src="./img/dashboard-2.png">
+
+  
+**2. Deploying Labs**
+
+- **Adding Labs to Deploy:**
+
+  - Click on "Add to deploy" to select labs for deployment.
+
+  - Provide necessary information about Hosting Request URL(github hosting rquest issue) , Hosting Requester, and Hosting Request date.
+
+  <img src="./img/hosting request url-rquester-name-remarks.png">
+
+- **Deployment:**
+  - Click on "Go to deploy" in the Navbar.
+    <img src="./img/deploy-4.png">
+  - Verify details and click "Deploy Labs."
+    <img src="./img/deploy-5.png">
+    <img src="./img/deploy-6.png">
+
+**3. Hosting Information**
+
+- **Viewing Hosting Information/history:**
+
+  - Click on "Hosting Info" in the Navbar to access deployed labs' information.
+  - This shows history of all deployments and helps user gather statistics about the deployments.
+  - Apply filters on columns and time to refine the view.
+
+    <img src="./img/hosting.png">
+
+**4. Logging Out**
+
+- Click on "Logout" in the Navbar to log out of the application.
+
+<img src="./img/dashboard.png">
+
+## Developer Approval Process
+- Add a comment to the lab hosting issue, stating that the lab has been deployed and requesting verification.
+- The developer will check the deployment by responding with a comment on the same issue.
+
 
 ---
