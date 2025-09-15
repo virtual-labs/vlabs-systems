@@ -142,11 +142,9 @@ Lab-descriptor.json format
 
   - Click on "Add to deploy" to select labs for deployment.
 
-  - Provide necessary information about Hosting Request URL, Hosting Requester, and Hosting Request date.
+  - Provide necessary information about Hosting Request URL(github hosting rquest issue) , Hosting Requester, and Hosting Request date.
 
-  <img src="./img/deploy-1.png">
-  <img src="./img/deploy-2.png">
-  <img src="./img/deploy-3.png">
+  <img src="./img/hosting request url-rquester-name-remarks.png">
 
 - **Deployment:**
   - Click on "Go to deploy" in the Navbar.
@@ -169,8 +167,7 @@ Lab-descriptor.json format
 
 - Click on "Logout" in the Navbar to log out of the application.
 
-<img src="./img/dashboard
-.png">
+<img src="./img/dashboard.png">
 
 
 ## Developer Approval Process
@@ -187,4 +184,9 @@ Lab-descriptor.json format
 - Institute:  Institute ID (IIITH,IITK etc)
 - Domain:  Dicipline (Computer Science and Engineering, Physical Sciences etc)
 - Hosted Url:  Hosted lab url
-- Approval Link: Developer approval comment link in github. 
+- Approval Link: Developer approval comment link in github.
+
+## The deployment of labs involves three scenarios, each of which is explained in detail in the following links.
+- [Hosting of new lab on S3](https://github.com/virtual-labs/vlabs-systems/blob/main/src/hosting-engineer/new-lab-hosting-s3.md)
+- [Rehosting of an existing lab in S3](https://github.com/virtual-labs/vlabs-systems/blob/main/src/hosting-engineer/rehosting-existing-lab-s3.md)
+- [Hosting a lab that is previously hosted on EC2](https://github.com/virtual-labs/vlabs-systems/blob/main/src/hosting-engineer/lab-hosting-ec2-s3.md)
