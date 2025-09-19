@@ -92,6 +92,7 @@ Use the [Lab description schema](https://github.com/virtual-labs/ph3-lab-mgmt/bl
  <img src="./img/repo6.png">
  
    - link: Domain link in the vlab.co.in website for example https://www.vlab.co.in/broad-area-computer-science-and-engineering
+   - code: It is short name of the domain refer to Lab description schema](https://github.com/virtual-labs/ph3-lab-mgmt/blob/master/validation/schemas/labDescSchema.json) under **broadAread:code** example **Computer Science and Engineering** is **CSE**
 
 - Lab : Name of the lab (Special characters are not allowed)
 - Lab display name: Name of the lab where it can have the spl characters and diplayed in the hosted webpage. 
