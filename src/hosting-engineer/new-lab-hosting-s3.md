@@ -1,55 +1,71 @@
-# User Documentation: Hosting of New Virtual Labs using deployment tool 
+# User Documentation: Hosting of New Virtual Labs using deployment tool & Setup guide
 
-## Introduction
-
-The Virtual Labs Workflow tool streamlines the process of configuring and triggering the deployment of multiple labs. Previously, this was done manually through GitHub, requiring hosting engineers to deploy each lab separately.
+## Introduction  
+This guide provides step-by-step instructions for deploying and hosting a new Virtual Lab. The process includes reviewing and analyzing the corresponding [GitHub issue](https://github.com/virtual-labs/engineers-forum/issues), verifying that all prerequisites are met, creating a dedicated GitHub repository for each lab, and running the deployment workflow using the lab deployment tool. With this tool, users can seamlessly host either a single lab or multiple labs as required.  
 
 ## Prerequisites
 - Ensure that you have the following before proceeding:
   - A GitHub account with access to the [Virtual Labs GitHub Organisation](https://github.com/virtual-labs).
-  - Access to [Virtual Labs GA4 Looker Studio](https://lookerstudio.google.com/) for viewing lab analytics.
   - Access to [Deployment tools](https://deploy.vlabs.ac.in/).
+  - AWS access to the [Virtual Labs](https://console.aws.amazon.com/)
+  - User github handle is placed in the [ph3-lab-deploy-s3.yml file](https://github.com/virtual-labs/vlabs-workflows/blob/main/.github/workflows/ph3-lab-deploy-S3.yml) under jobs: workflow_authorization: steps: with: users:. This is mandatory step to trigger the workflow.
 
 ## Target User
 
 This tool is designed for hosting engineers of virtual labs responsible for deploying labs efficiently.
 
-## Lab Deployment Process
+## Lab Deployment Process  
 
-Lab deployment involves committing descriptors, selecting workflows, and triggering processes. The Virtual Labs Workflow tool simplifies this by providing an interface for committing and triggering workflows for multiple labs with a single click. Additionally, it displays hosting information for deployed labs.
+The lab deployment process begins when a developer raises an issue in the GitHub Engineers Forum and concludes with sending a request to IIT Delhi to link the lab on [vlab.co.in](https://vlab.co.in). The key steps are as follows:  
 
-## Process 
+1. **Issue Creation** - Developer creates an issue in the [Virtual Labs Engineer Forum Issues](https://github.com/virtual-labs/engineers-forum/issues) requesting lab hosting.
+2. **Requirement Verification** - The issue is reviewed and analyzed to ensure all requirements are met.  
+3. **Repository Setup** - A dedicated GitHub repository for the lab is created.  
+4. **Tool Access** - Log in to the [Lab Deployment Tool](https://deploy.vlabs.ac.in/).  
+5. **Adding the Lab** - Add the lab in the deployment tool.  
+6. **Deployment Execution** - Deploy the lab using the tool.
+7. **Testing the Deployed Lab** – The hosted lab must be thoroughly tested by accessing its website URL to ensure proper functionality and compliance with requirements.
+8. **Verification & Approval** - Provide a comment on the GitHub issue with the hosted lab URL and request the developer to verify and approve it.  
+9. **Final Linking Reques** - Once approved, send an email to IIT Delhi requesting the lab to be linked on [vlab.co.in](https://vlab.co.in).  
 
-### Creation of Experiment Repos, Lab repo and hosting a lab
+### 1. Issue Creation
+- After building the experiment the developer of the lab creates an issue in the [Virtual Labs Engineer Forum Issues](https://github.com/virtual-labs/engineers-forum/issues) requesting lab hosting with all the necessary details like Lab Name, Phase, List of experiments with Name of the experiment, Github repositories link and tags, Approval mail screenshot/attachment from IIT-Delhi, Introduction, Objectives, Course Alignment, Target Audience. Reference this [link](https://github.com/virtual-labs/engineers-forum/issues/1096) for sample issue.
 
-**1. Issue Creation:**
-- In the Virtual Labs Engineer Forum, create a new issue for the Creation of Experiment Repository(Experiment developer will create this issue)
-- To access these issues, visit: [Virtual Labs Engineer Forum Issues](https://github.com/virtual-labs/engineers-forum/issues)
+### 2. Requirement Verification
+- **Tags**
+   - In the gihtub issue list all the experiments must have the valid tags. Check the tags by going to the experiment repo and check the tag is created as mentioned in the issue.
 
-**2. Confirm the Phase while Creating the Experiment Repository:**
-- While creating the experiment repository for the lab, ensure that the correct phase is documented and confirmed with the developer. This ensures consistency throughout the lab's lifecycle.
-- After creating the experiment repositories comment in issue with the respective experiment links for the lab.
-- After the experiment repos are created the developer will develop the experiments and create a hosting request in [engineer forum](https://github.com/virtual-labs/engineers-forum/issues) by creating Github issue to deploy the lab into the AWS.
+- **Verify the Lab Phase:**
+   - Before deploying a lab, confirm which phase it belongs to and ensure it's being hosted in the same phase. Ex: Phase 2, Phase 3, Extended-Phase 3
+   - If the lab's phase differs from the expected one, confirm this with the lab's developer before deploying. Correct phase assignment is crucial for accurate phase-based analytics.   
 
-**3. Creation of Lab repo**
-  - In the Virtual Labs Engineer Forum, create a new issue for Hosting/Rehosting of a lab (Experiment developer will create this issue)
-  - Will create a lab repo in github based on the hosting request(Github Issue).
-  - Add license "GNU Affero General Public License V3.0" under Choose a license dropdown.
-
-**4.	Adding Lab-Descriptor.json file** 
-- After creating repo add the “lab-descriptor.json” file. The template is in the [ph3-lab-mgmt](https://github.com/virtual-labs/ph3-lab-mgmt/blob/master/lab-descriptor.json).
-
+- **For New Labs (First-Time Hosting):**
+   - For new lab being hosted for the first time, ensure that the approval email from IIT Delhi is attached to the GitHub issue.
+     
+**3. Repository Setup or Creation Lab repo**
+  - Visit the [Virtual Labs](https://github.com/virtual-labs) Github
+    <img src="./img/repo1.png">
+  - Click on the **Create new dropdown icon** and click on **New repository**
+    <img src="./img/repo2.png">
+  - A new page will open in that under **Configuration** **Start with a template** dropdown select **virtual-labs/ph3-lab-template**
+    <img src="./img/repo3.png">
+  - **Respository name** is the lab name it follows naming convention of lab-lab name-institute short form. For example lab name - **test** and developing institute is **IIIT-Hyderabad** the repo name will be **lab-test-iiith**, Description will be **This repository contains lab content of Test Lab IIITH**. Before clicking on **Create repository** button select the following
+      - **Owner** is selected **virtual-labs**
+      - Under Configuration **Choose visibility** is **public**
+       <img src="./img/repo4.png">
+   
+**About Lab-Descriptor.json file** 
 Lab-descriptor.json format
 
 ~~~
 {
     "broadArea": {
         "name": "",
-        "link": ""
+        "link": "",
+        "code":
     },
     "lab": "",
     "lab_display_name": "",
-    "deployLab": ,
     "phase": ,
     "collegeName": "",
     "baseUrl": "",
@@ -66,16 +82,21 @@ Lab-descriptor.json format
     }
 } 
 ~~~
+Use the [Lab description schema](https://github.com/virtual-labs/ph3-lab-mgmt/blob/master/validation/schemas/labDescSchema.json) for filling the details in the lab-descriptor file.
+
 **Lab-descriptor.json consists of** 
-- broadArea: lab name 
-- link: lab link in the vlab.co.in website
+- broadArea:
+    - "name": Domain of the lab. Visit [vlabs.co.in](https://www.vlab.co.in/) under **Broad Areas of Virtual Labs** click on the domain which the lab belongs to for example **Computer Science & Engineering**. Enter the name of the domain make sure not to enter the special characters. For **Computer Science & Engineering** enter **Computer Science and Engineering**.
+ <img src="./img/repo5.png">
+ <img src="./img/repo6.png">
+- link: Domain link in the vlab.co.in website for example https://www.vlab.co.in/broad-area-computer-science-and-engineering
 - Lab : Name of the lab (Special characters are not allowed)
 - Lab display name: Name of the lab where it can have the spl characters and diplayed in the hosted webpage. 
 - Deploylab: Boolean make it true to deploy the lab or false to not to deploy the lab.
-- Phase: Which phase the lab belongs to.
+- Phase: Which phase the lab belongs to 2, 3, "3-ext"
 - College name: The developing institute name in short form as per analytics
-- baseUrl: link to the lab
-- introduction: it is available in the issue
+- baseUrl: link to the lab (name format: short form of lab name-developing institute short form.vlabs.ac.in for example lab name is **test lab** developing institute is **IIIT-Hyderabad** so the base url be **tl-iiith.vlabs.ac.in** all the text should be in small letters.
+- introduction: it is available in the github issue created by the developers
 - experiments: List of all the experiments of the lab will be listed here 
 ~~~
 [{
@@ -86,28 +107,11 @@ Lab-descriptor.json format
 “deploy”: Boolean (true or false) if you want to deploy this exp then make it true else make it false.
 }]
 ~~~
-- Objective, Course Alignment, Description, Universities will be mentioned in the lab hosting issue. 
+- Objective, Course Alignment, Description, Universities will be mentioned in the github lab hosting issue. 
 
-**Verify the Lab Phase:**
-   - Before deploying a lab, confirm which phase it belongs to and ensure it's being hosted in the same phase.
-   
-**Check the Hosting Request Issue:**
-   - Review the hosting request issue in the engineer forum repository on GitHub. The phase of the lab should be indicated by the developer.
-   
-**For New Labs (First-Time Hosting):**
-   - If it's a new lab being hosted for the first time, ensure that the approval email from IIT Delhi is attached to the GitHub issue.
-
-**For Rehosting (UI or Other Updates):**
-   - For rehosting an existing lab, verify its phase by checking the [2020-02-07-AWS-Hosted-Labs](https://docs.google.com/spreadsheets/d/1WXJA_1QkLg-5S0YYBRKyhEXwOgTSbKvm972Fy-thCUc/edit?usp=sharing) Google Sheet. Ensure the lab appears in the correct phase.
-
-**Confirming Lab Phase in Google Analytics:**
-   - If the lab is not listed in the 2020-02-07-AWS-Hosted-Labs google sheet, confirm the phase by checking its data in the [GA4 Looker Studio](https://lookerstudio.google.com/u/3/reporting/b40ac724-41f1-4b46-ba1b-c83f65284092/page/sh3VB).
-
-**Clarify with the Developer:**
-   - If the lab's phase differs from the expected one, confirm this with the lab's developer before deploying. Correct phase assignment is crucial for accurate phase-based analytics.
 
 ## User Interface
-
+Go to https://deploy.vlabs.ac.in
 **1. Searching Labs and Saving Descriptors**
 
 - **Login:**
@@ -141,6 +145,7 @@ Lab-descriptor.json format
 - **Adding Labs to Deploy:**
 
   - Click on "Add to deploy" to select labs for deployment.
+    <img src="./img/deploy16.png">
 
   - Provide necessary information about Hosting Request URL(github hosting rquest issue) , Hosting Requester, and Hosting Request date.
 
