@@ -82,6 +82,7 @@ Lab-descriptor.json format
     }
 } 
 ~~~
+
 Use the [Lab description schema](https://github.com/virtual-labs/ph3-lab-mgmt/blob/master/validation/schemas/labDescSchema.json) for filling the details in the lab-descriptor file.
 
 **Lab-descriptor.json consists of** 
@@ -89,7 +90,9 @@ Use the [Lab description schema](https://github.com/virtual-labs/ph3-lab-mgmt/bl
     - "name": Domain of the lab. Visit [vlabs.co.in](https://www.vlab.co.in/) under **Broad Areas of Virtual Labs** click on the domain which the lab belongs to for example **Computer Science & Engineering**. Enter the name of the domain make sure not to enter the special characters. For **Computer Science & Engineering** enter **Computer Science and Engineering**.
  <img src="./img/repo5.png">
  <img src="./img/repo6.png">
-- link: Domain link in the vlab.co.in website for example https://www.vlab.co.in/broad-area-computer-science-and-engineering
+ 
+   - link: Domain link in the vlab.co.in website for example https://www.vlab.co.in/broad-area-computer-science-and-engineering
+
 - Lab : Name of the lab (Special characters are not allowed)
 - Lab display name: Name of the lab where it can have the spl characters and diplayed in the hosted webpage. 
 - Deploylab: Boolean make it true to deploy the lab or false to not to deploy the lab.
@@ -97,7 +100,8 @@ Use the [Lab description schema](https://github.com/virtual-labs/ph3-lab-mgmt/bl
 - College name: The developing institute name in short form as per analytics
 - baseUrl: link to the lab (name format: short form of lab name-developing institute short form.vlabs.ac.in for example lab name is **test lab** developing institute is **IIIT-Hyderabad** so the base url be **tl-iiith.vlabs.ac.in** all the text should be in small letters.
 - introduction: it is available in the github issue created by the developers
-- experiments: List of all the experiments of the lab will be listed here 
+- experiments: List of all the experiments of the lab will be listed here
+  
 ~~~
 [{
 “name”: “experiment name”
@@ -107,6 +111,7 @@ Use the [Lab description schema](https://github.com/virtual-labs/ph3-lab-mgmt/bl
 “deploy”: Boolean (true or false) if you want to deploy this exp then make it true else make it false.
 }]
 ~~~
+
 - Objective, Course Alignment, Description, Universities will be mentioned in the github lab hosting issue. 
 
 
