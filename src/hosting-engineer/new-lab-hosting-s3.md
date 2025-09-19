@@ -95,7 +95,6 @@ Use the [Lab description schema](https://github.com/virtual-labs/ph3-lab-mgmt/bl
 
 - Lab : Name of the lab (Special characters are not allowed)
 - Lab display name: Name of the lab where it can have the spl characters and diplayed in the hosted webpage. 
-- Deploylab: Boolean make it true to deploy the lab or false to not to deploy the lab.
 - Phase: Which phase the lab belongs to 2, 3, "3-ext"
 - College name: The developing institute name in short form as per analytics
 - baseUrl: link to the lab (name format: short form of lab name-developing institute short form.vlabs.ac.in for example lab name is **test lab** developing institute is **IIIT-Hyderabad** so the base url be **tl-iiith.vlabs.ac.in** all the text should be in small letters.
