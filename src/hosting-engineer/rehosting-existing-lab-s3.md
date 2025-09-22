@@ -1,16 +1,20 @@
 # User Documentation: Re-Hosting of existing Virtual Labs using deployment tool
 
-The Virtual Labs Workflow tool streamlines the process of configuring and triggering the deployment of multiple labs. Previously, this was done manually through GitHub, requiring hosting engineers to deploy each lab separately.
+## Introduction
+Re-hosting of the existing Virtual lab using deployment tool. After Hosting the lab the developers will update the experiment and request to re-hosting the lab for the new changes by commenting on the engineers-forum Hosting issue. 
 
 ## Prerequisites
 - Ensure that you have the following before proceeding:
-  - A GitHub account with access to the [Virtual Labs GitHub Organisation](https://github.com/virtual-labs).
-  - Access to [Virtual Labs GA4 Looker Studio](https://lookerstudio.google.com/) for viewing lab analytics.
-  - Access to [Deployment tools](https://deploy.vlabs.ac.in/).
+- A GitHub account with access to the [Virtual Labs GitHub Organisation](https://github.com/virtual-labs).
+- Access to [Deployment tools](https://deploy.vlabs.ac.in/).
 
 ## Target User
 
 This tool is designed for hosting engineers of virtual labs responsible for deploying labs efficiently.
+
+## Update Lab-descriptor 
+ -  Open the lab repository which 
+
 
 ## Lab Deployment Process
 
