@@ -141,7 +141,7 @@ Go to https://deploy.vlabs.ac.in
 
   - Click on "Add Lab" in the Navbar.
   - In the "Add Lab" modal, enter the lab repository link and click "Load" to load the lab.
-  - Click "Add" to include the lab in the "GA4 Lab List."
+  - Click "Add" to include the lab in the "[GA4 Lab List](https://docs.google.com/spreadsheets/d/10tUdkFSpBHHuoHr0nGh7rjdfNOSH6xWLPeKNdn-gOlg/edit?gid=1066138868#gid=1066138868&range=A2)."
 
   <img src="./img/add-lab.png">
 
