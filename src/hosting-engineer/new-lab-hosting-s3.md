@@ -26,7 +26,7 @@ The lab deployment process begins when a developer raises an issue in the GitHub
 6. **Deployment Execution** - Deploy the lab using the tool.
 7. **Testing the Deployed Lab** – The hosted lab must be thoroughly tested by accessing its website URL to ensure proper functionality and compliance with requirements.
 8. **Verification & Approval** - Provide a comment on the GitHub issue with the hosted lab URL and request the developer to verify and approve it.  
-9. **Final Linking Reques** - Once approved, send an email to IIT Delhi requesting the lab to be linked on [vlab.co.in](https://vlab.co.in).  
+9. **Final Linking Request** - Once approved, send an email to IIT Delhi requesting the lab to be linked on [vlab.co.in](https://vlab.co.in).  
 
 ### 1. Issue Creation
 - After building the experiment the developer of the lab creates an issue in the [Virtual Labs Engineer Forum Issues](https://github.com/virtual-labs/engineers-forum/issues) requesting lab hosting with all the necessary details like Lab Name, Phase, List of experiments with Name of the experiment, Github repositories link and tags, Approval mail screenshot/attachment from IIT-Delhi, Introduction, Objectives, Course Alignment, Target Audience. Reference this [link](https://github.com/virtual-labs/engineers-forum/issues/1096) for sample issue.
@@ -42,17 +42,24 @@ The lab deployment process begins when a developer raises an issue in the GitHub
 - **For New Labs (First-Time Hosting):**
    - For new lab being hosted for the first time, ensure that the approval email from IIT Delhi is attached to the GitHub issue.
      
-**3. Repository Setup or Creation Lab repo**
+### 3. Repository Setup or Creation Lab repo
   - Visit the [Virtual Labs](https://github.com/virtual-labs) Github
+
     <img src="./img/repo1.png">
+  
   - Click on the **Create new dropdown icon** and click on **New repository**
+
     <img src="./img/repo2.png">
+ 
   - A new page will open in that under **Configuration** **Start with a template** dropdown select **virtual-labs/ph3-lab-template**
-    <img src="./img/repo3.png">
+
+     <img src="./img/repo3.png">
+  
   - **Respository name** is the lab name it follows naming convention of lab-lab name-institute short form. For example lab name - **test** and developing institute is **IIIT-Hyderabad** the repo name will be **lab-test-iiith**, Description will be **This repository contains lab content of Test Lab IIITH**. Before clicking on **Create repository** button select the following
       - **Owner** is selected **virtual-labs**
       - Under Configuration **Choose visibility** is **public**
-       <img src="./img/repo4.png">
+
+        <img src="./img/repo4.png">
    
 **About Lab-Descriptor.json file** 
 Lab-descriptor.json format
@@ -87,8 +94,10 @@ Use the [Lab description schema](https://github.com/virtual-labs/ph3-lab-mgmt/bl
 
 **Lab-descriptor.json consists of** 
 - broadArea:
-    - "name": Domain of the lab. Visit [vlabs.co.in](https://www.vlab.co.in/) under **Broad Areas of Virtual Labs** click on the domain which the lab belongs to for example **Computer Science & Engineering**. Enter the name of the domain make sure not to enter the special characters. For **Computer Science & Engineering** enter **Computer Science and Engineering**.
- <img src="./img/repo5.png">
+    - "name": Domain of the lab.
+    - **How to get the domain name?**:  Visit [vlabs.co.in](https://www.vlab.co.in/) under **Broad Areas of Virtual Labs** click on the domain which the lab belongs to for example **Computer Science & Engineering**. Enter the name of the domain make sure not to enter the special characters. For **Computer Science & Engineering** enter **Computer Science and Engineering**.
+
+<img src="./img/repo5.png">
  <img src="./img/repo6.png">
  
    - link: Domain link in the vlab.co.in website for example https://www.vlab.co.in/broad-area-computer-science-and-engineering
@@ -100,7 +109,8 @@ Use the [Lab description schema](https://github.com/virtual-labs/ph3-lab-mgmt/bl
 - College name: The developing institute name in short form as per analytics
 - baseUrl: link to the lab (name format: short form of lab name-developing institute short form.vlabs.ac.in for example lab name is **test lab** developing institute is **IIIT-Hyderabad** so the base url be **tl-iiith.vlabs.ac.in** all the text should be in small letters.
 - introduction: it is available in the github issue created by the developers
-- experiments: List of all the experiments of the lab will be listed here
+- Objective, Course Alignment, Description, Universities will be mentioned in the github lab hosting issue. 
+- experiments: List of all the experiments of the lab will be listed here. You can use the AI like chatgpt, Gemini etc to generate the experiments in required format.  
   
 ~~~
 [{
@@ -111,11 +121,20 @@ Use the [Lab description schema](https://github.com/virtual-labs/ph3-lab-mgmt/bl
 “deploy”: Boolean (true or false) if you want to deploy this exp then make it true else make it false.
 }]
 ~~~
+- Generation of experiments using AI
+  Copy the list of experiment from the engineers-forum issue
 
-- Objective, Course Alignment, Description, Universities will be mentioned in the github lab hosting issue. 
+  <img src="./img/experiments-list-screenshot.png">
+
+  Prompt for generating the experiment list in json format
+
+   ~~~
+   Above is the list of names and links and I need it as below format for each line. Make it into a single .json format """ { "name": "Schematic Design Of Transistor Level Inverter", "short-name": "transistor-level-inverter", "repo": "https://github.com/virtual-labs/exp-transistor-level-inverter-iiith", "tag": "v1.0.3", "deploy": true }"""
+   ~~~
 
 
-## User Interface
+
+### 4. Tool Access
 Go to https://deploy.vlabs.ac.in
 **1. Searching Labs and Saving Descriptors**
 
