@@ -135,70 +135,82 @@ Use the [Lab description schema](https://github.com/virtual-labs/ph3-lab-mgmt/bl
 
 
 ### 4. Tool Access
-Go to https://deploy.vlabs.ac.in
-**1. Searching Labs and Saving Descriptors**
-
-- **Login:**
-
+**1. Login:**
+  - Go to https://deploy.vlabs.ac.in  
   - Users must log in using their GitHub credentials.
   - Upon successful login, the dashboard is displayed.
+  
 
-  <img src="./img/dashboard.png">
+### 5. Adding the Lab 
+  - Click on "Add Lab" in the Navbar.
+
+    <img src="./img/add-lab-1.png">
+    
+  - In the "Add Lab" modal, enter the lab repository link and click "Load" to load the lab.
+
+    <img src="./img/load-lab-1.png">
+     
+  - Click "Add" to include the lab in the "[GA4 Lab List](https://docs.google.com/spreadsheets/d/10tUdkFSpBHHuoHr0nGh7rjdfNOSH6xWLPeKNdn-gOlg/edit?gid=1066138868#gid=1066138868&range=A2)."
+
+  <img src="./img/load-add-lab.png">
+
+  - After adding close the popup box by clicking the x icon as shown below.
+
+     <img src="./img/window-close.png">
+
+
+### 6.Deployment Execution
+
+** Searching Labs and Saving Descriptors**
+
+  <img src="./img/lab-search-1.png">
 
 - **Lab Search:**
 
   - Users can search for labs by name, institute, etc.
+     <img src="./img/lab-search-result.png">
+  
   - Clicking on a result loads the lab descriptor on the right half of the container.
-  - The descriptor is editable and can be saved using the "Save" button.
-  - The "Valid Descriptor" label indicates whether the loaded descriptor is valid.
+    <img src="./img/lab-search-display.png">
+    
+    - The **Valid Descriptor** button indicates the loaded descriptor is valid.
 
-  <img src="./img/dashboard-2.png">
+  <img src="./img/valid-descriptor.png">
 
-**2. Adding a Lab**
+  -  If the Descriptor is not valid it will show button as **Invalid Descriptor** 
 
-- **Add Lab:**
+    <img src="./img/invalid-descriptor.png">
+    
+  - If the descriptor is invalid, the user can click on the **Invalid Decsriptor** button to view details explaining why it is invalid, which can help in resolving the issue. While the descriptor can be edited directly in the deployment tool, it is recommended to make edits in the GitHub repository of the lab. 
+  
+    <img src="./img/invalid-descriptor-pop.png">
 
-  - Click on "Add Lab" in the Navbar.
-  - In the "Add Lab" modal, enter the lab repository link and click "Load" to load the lab.
-  - Click "Add" to include the lab in the "[GA4 Lab List](https://docs.google.com/spreadsheets/d/10tUdkFSpBHHuoHr0nGh7rjdfNOSH6xWLPeKNdn-gOlg/edit?gid=1066138868#gid=1066138868&range=A2)."
-
-  <img src="./img/add-lab.png">
-
-**3. Deploying Labs**
+**Deploying Labs**
 
 - **Adding Labs to Deploy:**
 
   - Click on "Add to deploy" to select labs for deployment.
-    <img src="./img/deploy16.png">
+    <img src="./img/fresh-lab-deploy-1.png">
 
-  - Provide necessary information about Hosting Request URL(github hosting rquest issue) , Hosting Requester, and Hosting Request date.
+  - Provide necessary information about Hosting Request URL(github hosting rquest issue) , Hosting Requester, and Hosting Request date and click on **Add to deploy** button 
 
-  <img src="./img/hosting request url-rquester-name-remarks.png">
+  <img src="./img/fresh-lab-deploy-2.png">
 
 - **Deployment:**
-  - Click on "Go to deploy" in the Navbar.
-    <img src="./img/deploy-4.png">
+  - User will see the lab is **Added to deploy**. Click on "Go to deploy" in the Navbar.
+    <img src="./img/fresh-lab-deploy-3.png">
   - Verify details and click "Deploy Labs."
-    <img src="./img/deploy-5.png">
-    <img src="./img/deploy-6.png">
+    <img src="./img/fresh-lab-deploy-4.png">
+  - The deployment will go through Waiting--> In_Progress --> Done
+    <img src="./img/fresh-lab-deploy-5.png">
 
-**4. Hosting Information**
+    <img src="./img/fresh-lab-deploy-6.png">
 
-- **Viewing Hosting Information/history:**
+    <img src="./img/fresh-lab-deploy-7.png">
 
-  - Click on "Hosting Info" in the Navbar to access deployed labs' information.
-  - This shows history of all deployments and helps user gather statistics about the deployments.
-  - Apply filters on columns and time to refine the view.
+  - Do not close this window. Keep this webpage open user will come back to this page after configuring AWS. 
 
-    <img src="./img/hosting.png">
-
-**5. Logging Out**
-
-- Click on "Logout" in the Navbar to log out of the application.
-
-<img src="./img/dashboard.png">
-
-## AWS Server Lab Hosting Setup Guide
+### AWS Server Lab Hosting Setup Guide
 ### Hosting of new lab on S3
 
 This is a step-by-step instructions to configure **AWS CloudFront** and **Route 53** for hosting labs.
@@ -249,12 +261,21 @@ This is a step-by-step instructions to configure **AWS CloudFront** and **Route 
     - The CloudFront distribution options will be displayed when the user clicks on the Choose distribution field. After selecting the appropriate distribution, click Create records
       
       <img src="./img/route53-vlabs-create-record-5.png">
----
-## Developer Approval Process
+
+    - The record will be created and user can see the blue pop up on the top of the web which has **View Status** button
+      <img src="./img/route-53-view-status.png">
+    - A new page will open user will the status as **INSYNC** as shown below
+       <img src="./img/route-53-view-status-1.png">
+### 7. Testing the Deployed Lab
+   - Now go back to lab-deployment tool dashboard  as mentioned earlier configuring the aws.
+       <img src="./img/fresh-deploy-dashboard.png">
+    - Click on the deployed lab link and do the high level testing.
+
+### 8.Verification & Approval
 - Add a comment to the lab hosting issue, stating that the lab has been deployed and requesting verification and approval.
 - The developer will approve the deployment by responding with a comment on the same issue.
 
-## Linking the lab to vlab.co.in (Only for new labs).
+### 9. Final Linking Request.
 - After receiving approval from the developer, send an email to IITD requesting them to link the hosted lab to vlab.co.in.
 
   **Mail Format**
@@ -265,3 +286,4 @@ This is a step-by-step instructions to configure **AWS CloudFront** and **Route 
 - Domain:  Dicipline (Computer Science and Engineering, Physical Sciences etc)
 - Hosted Url:  Hosted lab url
 - Approval Link: Developer approval comment link in github.
+
